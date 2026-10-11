@@ -141,7 +141,7 @@ en une minute environ.
 
 ## Si une API bloque un jour les requêtes du navigateur (CORS)
 
-Aujourd'hui, les deux API autorisent les appels directs
+Aujourd'hui, les trois API (Met, SMK, Mia) autorisent les appels directs
 (`Access-Control-Allow-Origin: *`) et aucun proxy n'est nécessaire. Si cela
 changeait, la solution gratuite serait un
 [Cloudflare Worker](https://developers.cloudflare.com/workers/) qui relaie les
