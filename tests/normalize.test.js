@@ -11,6 +11,7 @@ import { readFileSync } from 'node:fs';
 
 import * as met from '../js/connectors/met.js';
 import * as smk from '../js/connectors/smk.js';
+import * as mia from '../js/connectors/mia.js';
 import { cleanCriteria } from '../js/filters.js';
 import { interleave } from '../js/utils.js';
 
@@ -31,10 +32,11 @@ test('tous les connecteurs renvoient exactement le format commun', () => {
   const cases = [
     met.normalize(metPainting), met.normalize(metDrawing),
     ...fixture('smk-artworks.json').map(smk.normalize),
+    ...fixture('mia-objects.json').map(mia.normalize),
   ];
   for (const art of cases) {
     assert.deepEqual(Object.keys(art).sort(), EXPECTED_KEYS);
-    assert.match(art.id, /^(met|smk):\S/);
+    assert.match(art.id, /^(met|smk|mia):\S/);
     assert.ok(['peinture', 'dessin', 'autre'].includes(art.type));
     for (const key of ['thumbUrl', 'imageUrl', 'hdUrl', 'pageUrl']) {
       assert.match(art[key], /^https:\/\//, `${art.id}.${key} doit être une URL https`);

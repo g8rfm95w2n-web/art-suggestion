@@ -16,8 +16,9 @@
 
 import * as met from './met.js';
 import * as smk from './smk.js';
+import * as mia from './mia.js';
 
-export const connectors = [met, smk];
+export const connectors = [met, smk, mia];
 
 export function getConnector(sourceId) {
   return connectors.find((c) => c.id === sourceId);

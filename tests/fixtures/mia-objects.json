@@ -1,0 +1,50 @@
+[
+  {
+    "id": 5747,
+    "title": "Pastoral Landscape",
+    "artist": "Claude Gellée (called Le Lorrain)",
+    "dated": "1638",
+    "medium": "Oil on canvas",
+    "classification": "Paintings",
+    "object_name": "Painting",
+    "rights_type": "Public Domain",
+    "image": "valid",
+    "public_access": 1,
+    "style": null,
+    "accession_number": "98.33",
+    "nationality": "French",
+    "life_date": "French, 1603–1682"
+  },
+  {
+    "id": 1637,
+    "title": "The Church at Chailly",
+    "artist": "Jean-François Millet",
+    "dated": "1868–69",
+    "medium": "Pastel and Conté crayon on beige paper",
+    "classification": "Drawings",
+    "object_name": "Drawing",
+    "rights_type": "Public Domain",
+    "image": "valid",
+    "public_access": 1,
+    "style": null,
+    "accession_number": "67.31.4",
+    "nationality": "French",
+    "life_date": "French, 1814–1875"
+  },
+  {
+    "id": 22354,
+    "title": "Portrait of a Seated Raja",
+    "artist": "India (Bundi)",
+    "dated": "c. 1720",
+    "medium": "Opaque colors on paper",
+    "classification": "Drawings",
+    "object_name": "Drawing",
+    "rights_type": "Public Domain",
+    "image": "valid",
+    "public_access": 1,
+    "style": null,
+    "accession_number": "81.116.11",
+    "nationality": "Indian",
+    "life_date": null
+  }
+]
