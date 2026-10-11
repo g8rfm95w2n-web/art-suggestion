@@ -40,6 +40,25 @@ export class HttpError extends Error {
 }
 
 /**
+ * fetch() avec un second essai en cas d'échec réseau ou CORS (TypeError).
+ * Cas réel : certains serveurs (Cleveland) mémorisent la première réponse
+ * faite à une URL, en-têtes compris ; si ce premier appel venait d'un outil
+ * sans navigateur, la réponse mémorisée n'a pas l'autorisation CORS et le
+ * navigateur la refuse ensuite. Un paramètre en plus (_r=…) donne une URL
+ * neuve, donc une réponse correcte. Pas de second essai après un délai
+ * dépassé : le serveur est simplement lent ou injoignable.
+ */
+async function fetchWithRetry(url) {
+  try {
+    return await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) });
+  } catch (err) {
+    if (err.name !== 'TypeError') throw err;
+    const retryUrl = `${url}${url.includes('?') ? '&' : '?'}_r=${Date.now()}`;
+    return fetch(retryUrl, { signal: AbortSignal.timeout(TIMEOUT_MS) });
+  }
+}
+
+/**
  * Récupère une URL JSON, avec cache et limitation de débit.
  * @param {string} url
  * @param {{ttl?: number}} [options]
@@ -52,7 +71,7 @@ export async function fetchJson(url, { ttl = DEFAULT_TTL } = {}) {
   const promise = (async () => {
     const release = await acquire(new URL(url).host);
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) });
+      const res = await fetchWithRetry(url);
       // 404 = objet supprimé du musée : on le mémorise aussi (valeur null)
       // pour ne pas le redemander à chaque fois.
       if (res.status === 404) {
