@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modèles à copier</title>
+  <meta name="description" content="Trouver des peintures et dessins du domaine public à copier pour s'entraîner.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="brand">Modèles à copier</a>
+    <span class="tagline">Peintures et dessins du domaine public</span>
+  </header>
+
+  <!-- Les options des listes sont remplies par app.js à partir de filters.js -->
+  <form id="filters" class="filters" aria-label="Filtres de recherche">
+    <label>Thème
+      <select name="theme"><option value="">Tous les thèmes</option></select>
+    </label>
+    <label>Époque
+      <select name="epoque"><option value="">Toutes les époques</option></select>
+    </label>
+    <label>Support
+      <select name="support"><option value="">Peinture et dessin</option></select>
+    </label>
+    <button type="button" id="surprise" class="btn btn-accent">🎲 Surprends-moi</button>
+  </form>
+
+  <main id="view" aria-live="polite"></main>
+
+  <footer class="footer">
+    Images et données : <a href="https://www.metmuseum.org/" target="_blank" rel="noopener">The Met</a>
+    et <a href="https://www.artic.edu/" target="_blank" rel="noopener">Art Institute of Chicago</a>
+    (domaine public).
+  </footer>
+
+  <!-- type="module" : active import/export entre fichiers JS -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

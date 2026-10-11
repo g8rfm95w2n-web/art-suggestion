@@ -1,0 +1,111 @@
+// Connecteur : Metropolitan Museum of Art (New York)
+// Documentation : https://metmuseum.github.io/
+//
+// Points clés de l'API :
+//  - /v1.1/search ne renvoie QUE des identifiants (objectIDs), paginés par
+//    offset/limit (l'ancien /v1/search a été retiré le 1er octobre 2026) ;
+//  - il faut ensuite une requête /v1/objects/{id} par œuvre pour avoir le détail
+//    → on garde des pages petites et tout est mis en cache ;
+//  - on ne peut pas filtrer « domaine public » dans la recherche : on le vérifie
+//    sur le détail (isPublicDomain), et on écarte les autres ;
+//  - le filtre `medium` combiné avec « | » donne des résultats incohérents,
+//    donc on fait une recherche par support quand aucun n'est choisi ;
+//  - limite demandée : 80 requêtes/seconde (on en fait au plus 4 à la fois).
+
+import { fetchJson } from '../net.js';
+import { THEMES, EPOQUES } from '../filters.js';
+import { interleave } from '../utils.js';
+
+const API = 'https://collectionapi.metmuseum.org/public/collection';
+const MAX_RESULTS = 10000; // offset + limit ne peut pas dépasser 10 000
+
+export const id = 'met';
+export const label = 'The Metropolitan Museum of Art';
+
+// Valeurs du filtre `medium` du Met (sensibles à la casse).
+const MEDIUMS = { peinture: 'Paintings', dessin: 'Drawings' };
+
+/** URL de recherche pour UN support donné. Fonction pure → testable. */
+export function buildSearchUrl(criteria, medium, offset, limit) {
+  const qs = new URLSearchParams({
+    hasImages: 'true',
+    medium,
+    // `q` est obligatoire ; « * » signifie « tout ».
+    q: criteria.theme ? THEMES[criteria.theme].query : '*',
+    offset: String(offset),
+    limit: String(limit),
+  });
+  if (criteria.epoque) {
+    const [from, to] = EPOQUES[criteria.epoque].range;
+    qs.set('dateBegin', String(from)); // la doc impose dateBegin ET dateEnd
+    qs.set('dateEnd', String(to));
+  }
+  return `${API}/v1.1/search?${qs}`;
+}
+
+function typeFromRaw(raw) {
+  const text = `${raw.classification} ${raw.objectName}`.toLowerCase();
+  if (text.includes('painting')) return 'peinture';
+  if (text.includes('drawing')) return 'dessin';
+  return 'autre';
+}
+
+/**
+ * Convertit un objet brut du Met au format commun.
+ * Renvoie null si l'œuvre n'est pas utilisable (pas d'image ou pas libre de droits).
+ */
+export function normalize(raw) {
+  if (!raw || !raw.isPublicDomain || !raw.primaryImageSmall) return null;
+  const tags = (raw.tags || []).map((t) => t.term.toLowerCase());
+
+  return {
+    id: `met:${raw.objectID}`,
+    source: id,
+    sourceLabel: label,
+    title: raw.title || 'Sans titre',
+    artist: raw.artistDisplayName || raw.culture || 'Artiste inconnu',
+    date: raw.objectDate || '',
+    // objectBeginDate vaut 0 quand la date est inconnue
+    year: raw.objectDate && Number.isFinite(raw.objectBeginDate) ? raw.objectBeginDate : null,
+    medium: raw.medium || '',
+    type: typeFromRaw(raw),
+    thumbUrl: raw.primaryImageSmall,
+    imageUrl: raw.primaryImageSmall,
+    hdUrl: raw.primaryImage || raw.primaryImageSmall, // fichier original, parfois > 10 Mo
+    pageUrl: raw.objectURL || `https://www.metmuseum.org/art/collection/search/${raw.objectID}`,
+    tags: [...new Set(tags)],
+  };
+}
+
+/** Recherche paginée → { total, items } */
+export async function search(criteria, page, perPage) {
+  const supports = criteria.support ? [criteria.support] : Object.keys(MEDIUMS);
+  // Avec deux supports, chacun fournit la moitié de la page.
+  const share = Math.ceil(perPage / supports.length);
+  const offset = page * share;
+  if (offset + share > MAX_RESULTS) return { total: MAX_RESULTS, items: [] };
+
+  const results = await Promise.all(
+    supports.map((s) => fetchJson(buildSearchUrl(criteria, MEDIUMS[s], offset, share))),
+  );
+  const total = results.reduce((sum, r) => sum + Math.min(r?.total || 0, MAX_RESULTS), 0);
+
+  // On retient par quel support chaque œuvre a été trouvée : utile quand
+  // sa fiche ne permet pas de deviner le type (ex. une aquarelle classée « Paintings »).
+  const supportOf = new Map();
+  results.forEach((r, i) => (r?.objectIDs || []).forEach((oid) => supportOf.set(oid, supports[i])));
+  const ids = interleave(results.map((r) => r?.objectIDs || []));
+
+  // Une requête par œuvre (limitées et mises en cache par fetchJson).
+  const objects = await Promise.all(ids.map((oid) => fetchJson(`${API}/v1/objects/${oid}`)));
+  const items = objects
+    .map(normalize)
+    .filter(Boolean)
+    .map((a) => (a.type === 'autre' ? { ...a, type: supportOf.get(Number(a.id.slice(4))) } : a));
+  return { total, items };
+}
+
+/** Une œuvre par son identifiant Met (la partie après « met: »). */
+export async function getById(localId) {
+  return normalize(await fetchJson(`${API}/v1/objects/${localId}`));
+}
