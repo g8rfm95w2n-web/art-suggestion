@@ -43,12 +43,14 @@ export const SUPPORTS = {
 
 /**
  * Nettoie des critères venus de l'URL : toute valeur inconnue est ignorée.
- * Renvoie toujours un objet { theme, epoque, support } (chaînes, éventuellement vides).
+ * Renvoie toujours un objet { theme, epoque, support, motcle } (chaînes, éventuellement vides).
+ * `motcle` : mots anglais libres (issus de la recherche par envie), envoyés tels quels aux API.
  */
-export function cleanCriteria({ theme = '', epoque = '', support = '' } = {}) {
+export function cleanCriteria({ theme = '', epoque = '', support = '', motcle = '' } = {}) {
   return {
     theme: theme in THEMES ? theme : '',
     epoque: epoque in EPOQUES ? epoque : '',
     support: support in SUPPORTS ? support : '',
+    motcle: /^[a-z ]{1,40}$/.test(motcle) ? motcle.trim() : '',
   };
 }

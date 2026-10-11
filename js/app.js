@@ -3,7 +3,9 @@
 // Navigation par « hash » (la partie de l'URL après #) :
 //   #/?theme=paysage&support=dessin        → grille de résultats filtrés
 //   #/oeuvre/aic:27992?theme=paysage       → détail d'une œuvre
+//   #/copie/aic:27992                      → mode copie (grille, gris, zoom)
 //   #/tableau?statut=en-cours              → mon tableau d'inspiration
+//   #/?theme=marine&motcle=calm&envie=…    → résultats d'une recherche par envie
 // Avantages : aucun serveur nécessaire (GitHub Pages ne sert que des fichiers),
 // le bouton « retour » du navigateur fonctionne, et chaque recherche a une URL
 // qu'on peut mettre en favori.
@@ -14,16 +16,21 @@
 //    déjà chargés (la changer ne relance donc pas de recherche).
 
 import { THEMES, EPOQUES, SUPPORTS, cleanCriteria } from './filters.js';
+import { parseEnvie } from './envies.js';
 import { searchAll, getArtwork, surprise } from './search.js';
+import { esc } from './utils.js';
 import { analyze, LEVELS } from './analysis.js';
 import { STATUSES, getFavorite, listFavorites } from './favorites.js';
 import { appendCards, showLevels, applyLevelFilter } from './ui/grid.js';
 import { renderDetail } from './ui/detail.js';
 import { renderBoard } from './ui/board.js';
+import { renderCopy } from './ui/copy.js';
 
 const view = document.getElementById('view');
 const form = document.getElementById('filters');
 const surpriseBtn = document.getElementById('surprise');
+const envieForm = document.getElementById('envie');
+const envieInput = document.getElementById('envie-text');
 const APP_TITLE = document.title;
 
 // Mémoire de la recherche en cours : revenir du détail ne relance rien.
@@ -40,6 +47,9 @@ const MAX_AUTO_PAGES = 3;
 // Chaque navigation reçoit un numéro ; une réponse réseau qui arrive après
 // une navigation plus récente est ignorée (sinon l'affichage « saute »).
 let navToken = 0;
+// Fonction de nettoyage de la vue courante (le mode copie écoute le clavier,
+// la taille de la fenêtre… : il faut tout retirer en le quittant).
+let cleanupView = null;
 
 // ---------------------------------------------------------------- URL ↔ filtres
 
@@ -75,13 +85,27 @@ fillSelect(form.difficulte, Object.entries(LEVELS));
 
 function readForm() {
   const values = Object.fromEntries(new FormData(form));
+  // Le mot-clé ne vient pas des listes mais de la recherche par envie : on le garde.
+  values.motcle = parseHash().criteria.motcle;
   return { criteria: cleanCriteria(values), level: values.difficulte in LEVELS ? values.difficulte : '' };
 }
 
-function syncForm(criteria, level) {
-  for (const [k, v] of Object.entries(criteria)) form[k].value = v;
+function syncForm(criteria, level, envie = '') {
+  for (const k of ['theme', 'epoque', 'support']) form[k].value = criteria[k];
   form.difficulte.value = level;
+  envieInput.value = envie;
 }
+
+// Recherche par envie : le texte est traduit en filtres, puis on affiche la grille.
+// Le texte reste dans l'URL (envie=…) pour pouvoir expliquer l'interprétation.
+envieForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const text = envieInput.value.trim();
+  if (!text) return;
+  envieInput.blur(); // referme le clavier sur tablette
+  const { criteria, niveau } = parseEnvie(text);
+  location.hash = `#/${queryString({ ...criteria, difficulte: niveau, envie: text })}`;
+});
 
 // Changer un filtre relance la recherche immédiatement (pratique sur tablette).
 form.addEventListener('change', () => {
@@ -112,7 +136,7 @@ const LOADING = message('Recherche en cours…', 'notice loading');
 
 function renderGrid() {
   const { items, hasMore, errors } = results;
-  const parts = [];
+  const parts = [envieBanner()];
   if (errors.length) parts.push(message(`${errors.join(', ')} ne répond pas pour le moment.`, 'notice warn'));
   if (!items.length) parts.push(message('Aucune œuvre trouvée. Essaie d’élargir les filtres.'));
   else parts.push('<p class="count"></p>');
@@ -125,6 +149,36 @@ function renderGrid() {
   updateCount();
   view.querySelector('#more')?.addEventListener('click', () => loadMore());
   analyzeAndFill(items);
+}
+
+const EFFECT_LABELS = {
+  theme: (v) => `thème ${THEMES[v].label}`,
+  epoque: (v) => EPOQUES[v].label,
+  support: (v) => SUPPORTS[v].label,
+  niveau: (v) => `niveau ${LEVELS[v]}`,
+  motcle: (v) => `mot-clé « ${v} »`,
+};
+
+/** Explique comment l'envie a été comprise, ou affiche le mot-clé actif. */
+function envieBanner() {
+  const { params, criteria } = parseHash();
+  if (params.envie) {
+    const { understood, unknown } = parseEnvie(params.envie);
+    const items = understood.map(({ mot, effet }) =>
+      `<li><strong>${esc(mot)}</strong> → ${Object.entries(effet).map(([k, v]) => EFFECT_LABELS[k](v)).join(', ')}</li>`);
+    return `<div class="notice envie-result">
+      ${items.length
+        ? `<p>J’ai compris :</p><ul>${items.join('')}</ul>`
+        : '<p>Je n’ai reconnu aucun mot de ton envie : voici une sélection sans filtre.</p>'}
+      ${unknown.length ? `<p class="muted">Mots non reconnus : ${unknown.map(esc).join(', ')}</p>` : ''}
+    </div>`;
+  }
+  if (criteria.motcle) {
+    const without = gridHash({ ...criteria, motcle: '' }, difficulty);
+    return `<p class="chips">Mot-clé : <span class="chip-tag">${esc(criteria.motcle)}
+      <a href="${without}" aria-label="Retirer le mot-clé">✕</a></span></p>`;
+  }
+  return '';
 }
 
 function updateCount() {
@@ -202,13 +256,9 @@ async function showDetail(id, criteria, params, token) {
   setSection('detail');
   window.scrollTo(0, 0);
 
-  // Ordre de recherche : déjà en mémoire → copie dans le tableau → API du musée.
-  let art = known.get(id) || getFavorite(id)?.art;
-  if (!art) {
-    view.innerHTML = LOADING;
-    art = await getArtwork(id).catch(() => null);
-    if (token !== navToken) return;
-  }
+  if (!known.has(id) && !getFavorite(id)) view.innerHTML = LOADING;
+  const art = await findArtwork(id);
+  if (token !== navToken) return;
   const fromBoard = params.from === 'tableau';
   const backHref = fromBoard ? '#/tableau' : lastGridHash;
   if (!art) {
@@ -219,9 +269,28 @@ async function showDetail(id, criteria, params, token) {
   document.title = `${art.title} — ${APP_TITLE}`;
   renderDetail(view, art, {
     backHref,
+    copyHref: `#/copie/${art.id}${queryString(params)}`,
     backLabel: fromBoard ? 'Mon tableau' : 'Résultats',
     onSurprise: params.hasard === '1' ? () => doSurprise(criteria, difficulty) : null,
   });
+}
+
+/** Ordre de recherche : déjà en mémoire → copie dans le tableau → API du musée. */
+async function findArtwork(id) {
+  return known.get(id) || getFavorite(id)?.art || getArtwork(id).catch(() => null);
+}
+
+async function showCopy(id, params, token) {
+  setSection('copy');
+  const art = await findArtwork(id);
+  if (token !== navToken) return;
+  if (!art) {
+    view.innerHTML = message('Œuvre introuvable. <a href="#/">Retour</a>');
+    return;
+  }
+  known.set(art.id, art);
+  document.title = `Copie : ${art.title} — ${APP_TITLE}`;
+  cleanupView = renderCopy(view, art, { backHref: `#/oeuvre/${art.id}${queryString(params)}` });
 }
 
 function showBoard(params) {
@@ -262,10 +331,15 @@ async function doSurprise(criteria, level) {
 
 function route() {
   const token = ++navToken;
+  cleanupView?.();
+  cleanupView = null;
   const { path, params, criteria, level } = parseHash();
   if (path === '/tableau') return showBoard(params);
+  if (path.startsWith('/copie/')) {
+    return showCopy(decodeURIComponent(path.slice('/copie/'.length)), params, token);
+  }
 
-  syncForm(criteria, level);
+  syncForm(criteria, level, params.envie);
   if (!path.startsWith('/oeuvre/')) lastGridHash = location.hash || '#/';
   const levelChanged = level !== difficulty;
   difficulty = level;

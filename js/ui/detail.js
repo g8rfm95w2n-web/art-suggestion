@@ -10,16 +10,17 @@ const TYPE_LABELS = { peinture: 'Peinture', dessin: 'Dessin', autre: '—' };
 /**
  * @param {HTMLElement} container
  * @param {object} art         œuvre au format commun
- * @param {{backHref: string, backLabel: string, onSurprise?: Function}} options
+ * @param {{backHref: string, backLabel: string, copyHref: string, onSurprise?: Function}} options
  */
-export function renderDetail(container, art, { backHref, backLabel, onSurprise }) {
+export function renderDetail(container, art, { backHref, backLabel, copyHref, onSurprise }) {
   const tags = art.tags.slice(0, 12).map((t) => `<li>${esc(t)}</li>`).join('');
 
   container.innerHTML = `
     <article class="detail">
       <nav class="detail-nav">
         <a class="btn" href="${esc(backHref)}">← ${esc(backLabel)}</a>
-        ${onSurprise ? '<button type="button" class="btn btn-accent" id="again">🎲 Une autre</button>' : ''}
+        <a class="btn btn-accent" href="${esc(copyHref)}">✏️ Mode copie</a>
+        ${onSurprise ? '<button type="button" class="btn" id="again">🎲 Une autre</button>' : ''}
       </nav>
 
       <figure class="detail-figure">

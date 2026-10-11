@@ -93,8 +93,52 @@ select, .btn {
 .btn:disabled { opacity: .6; cursor: wait; }
 .btn-accent { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
 
-/* La barre de filtres ne sert que sur la page de recherche : plus de place ailleurs. */
-body:not([data-section="search"]) .filters { display: none; }
+/* Recherche par envie */
+.envie { display: flex; gap: 10px; padding: 8px var(--gap) 0; }
+.envie input {
+  flex: 1; min-width: 0; min-height: 48px; padding: 0 14px;
+  font: inherit; font-size: 1.05rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.envie-result p { margin: 0 0 4px; }
+.envie-result ul { margin: 0 0 4px; padding-left: 20px; }
+.envie-result { margin-bottom: 12px; }
+.chips { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+.chip-tag {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px 2px 10px;
+  border-radius: 99px; background: var(--surface); border: 1px solid var(--line); color: var(--text);
+}
+.chip-tag a { text-decoration: none; padding: 4px 8px; }
+
+/* La recherche ne sert que sur la page de recherche : plus de place ailleurs. */
+body:not([data-section="search"]) .filters,
+body:not([data-section="search"]) .envie { display: none; }
+
+/* Mode copie : l'œuvre occupe tout l'écran. */
+body[data-section="copy"] .topbar,
+body[data-section="copy"] .footer { display: none; }
+body[data-section="copy"] main { padding: 0; }
+body[data-section="copy"] { overflow: hidden; }
+
+.copy { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr; background: var(--bg); }
+.copy-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+  padding: 8px 12px; background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.copy-toolbar select { min-width: 0; }
+.tool-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.tool { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+.tool input[type="range"] { width: 110px; accent-color: var(--accent); }
+.tool output { min-width: 2ch; font-variant-numeric: tabular-nums; }
+.btn.toggle.is-on { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.zoom-level { min-width: 72px; font-variant-numeric: tabular-nums; }
+.wake { font-size: .8rem; }
+
+.stage { position: relative; overflow: hidden; touch-action: none; cursor: grab; user-select: none; }
+.stage.dragging { cursor: grabbing; }
+.canvas { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.canvas img, .grid-overlay { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.grid-overlay { pointer-events: none; overflow: visible; }
 
 /* ---------- Messages ---------- */
 

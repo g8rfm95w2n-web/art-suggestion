@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
   <!-- ?v=… : à changer après une modification du CSS, pour forcer les navigateurs
        à télécharger la nouvelle version au lieu de leur copie en cache. -->
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
   <header class="topbar">
@@ -19,6 +19,14 @@
       <a href="#/tableau" id="nav-board">Mon tableau <span id="board-count" class="tab-count">0</span></a>
     </nav>
   </header>
+
+  <!-- Recherche par envie : texte libre traduit en filtres (js/envies.js) -->
+  <form id="envie" class="envie" role="search">
+    <input id="envie-text" type="search" enterkeyhint="search" autocomplete="off"
+           aria-label="Ce dont j'ai envie"
+           placeholder="J'ai envie de… (ex. : quelque chose de paisible avec de l'eau)">
+    <button type="submit" class="btn btn-accent">Chercher</button>
+  </form>
 
   <!-- Les options des listes sont remplies par app.js à partir de filters.js -->
   <form id="filters" class="filters" aria-label="Filtres de recherche">

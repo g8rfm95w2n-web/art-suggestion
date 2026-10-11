@@ -30,8 +30,8 @@ export function buildSearchUrl(criteria, medium, offset, limit) {
   const qs = new URLSearchParams({
     hasImages: 'true',
     medium,
-    // `q` est obligatoire ; « * » signifie « tout ».
-    q: criteria.theme ? THEMES[criteria.theme].query : '*',
+    // `q` est obligatoire ; « * » signifie « tout ». Plusieurs mots = ET.
+    q: [criteria.theme && THEMES[criteria.theme].query, criteria.motcle].filter(Boolean).join(' ') || '*',
     offset: String(offset),
     limit: String(limit),
   });

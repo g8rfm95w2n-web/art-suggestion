@@ -36,8 +36,9 @@ js/net.js              fetch + cache + limite de requêtes simultanées + délai
 js/cache.js            cache IndexedDB (7 jours)
 js/analysis.js         palette et difficulté (canvas, calcul local)
 js/favorites.js        tableau d'inspiration (localStorage) + export/import
+js/envies.js           recherche par « envie » : dictionnaire français → filtres
 js/connectors/         un fichier par musée (aic.js, met.js) + index.js (registre)
-js/ui/                 grille, page détail, « Mon tableau »
+js/ui/                 grille, page détail, « Mon tableau », mode copie
 tests/                 tests de normalisation, sur de vraies réponses enregistrées
 ```
 
@@ -68,6 +69,37 @@ Calculées dans le navigateur sur la miniature réduite à 160 px (`js/analysis.
 - Les résultats sont gardés en cache (IndexedDB) : chaque image n'est analysée qu'une fois.
 - Le filtre « Difficulté » s'applique aux résultats déjà chargés ; si trop peu
   correspondent, le site charge automatiquement jusqu'à 3 pages de plus.
+
+## Mode copie
+
+Depuis la fiche d'une œuvre, « ✏️ Mode copie » l'affiche en plein écran avec :
+
+- **grille** superposable : nombre de cases (2 à 16), cases carrées ou N × N,
+  opacité, lignes claires ou sombres (chaque ligne a un léger halo pour rester
+  visible sur tous les fonds) ;
+- **niveaux de gris** ou **valeurs simplifiées** (3 ou 5 tons), pour étudier
+  ombres et lumières sans la couleur (filtres SVG appliqués à l'image) ;
+- **zoom** : pincer et glisser au doigt, molette, double-clic, boutons − / + ;
+  « HD » charge l'image en haute définition (plus nette, plus lourde) ;
+- raccourcis clavier : `+` `-` `0` (ajuster), `g` (grille), `n` (gris) ;
+- l'écran de la tablette ne se met pas en veille tant que le mode est ouvert
+  (API Wake Lock, si le navigateur la connaît).
+
+Les réglages sont mémorisés dans le navigateur.
+
+## Recherche par envie
+
+Le champ « J'ai envie de… » accepte du texte libre : « un dessin paisible avec
+de l'eau, pas trop dur ». Les mots sont comparés à un dictionnaire local
+(`js/envies.js`, sans accents ni pluriels) qui les traduit en filtres : thème,
+époque, support, difficulté, ou mot-clé anglais envoyé aux musées. Les
+expressions (« lumière chaude », « pas trop dur ») sont reconnues avant les mots
+seuls. La page explique ce qui a été compris et liste les mots ignorés.
+Au plus 2 mots-clés : le Met exige qu'une œuvre contienne tous les mots.
+
+Pour enrichir le dictionnaire : ajouter des mots à une entrée existante, ou une
+nouvelle ligne `{ mots: [...], effet: {...} }` ; un test vérifie que chaque
+effet désigne un filtre existant.
 
 ## Mettre en ligne (GitHub Pages)
 

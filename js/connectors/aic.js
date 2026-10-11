@@ -60,6 +60,16 @@ export function buildSearchUrl(criteria, page, perPage) {
     });
   }
 
+  if (criteria.motcle) {
+    must.push({
+      multi_match: {
+        query: criteria.motcle,
+        fields: ['subject_titles^3', 'term_titles^2', 'title'],
+        operator: 'and', // comme au Met : tous les mots doivent être présents
+      },
+    });
+  }
+
   // `should` ne filtre pas : il fait remonter en tête les œuvres que le musée
   // met en avant (is_boosted), souvent plus connues et mieux photographiées.
   const should = [{ term: { is_boosted: true } }];

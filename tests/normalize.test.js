@@ -154,6 +154,17 @@ test('Met : URL de recherche v1.1 avec filtres', () => {
   assert.equal(url.searchParams.get('dateEnd'), '1749');
 });
 
+test('Met : thème et mot-clé combinés dans q', () => {
+  const url = new URL(met.buildSearchUrl({ ...cleanCriteria(), theme: 'paysage', motcle: 'sunset' }, 'Paintings', 0, 6));
+  assert.equal(url.searchParams.get('q'), 'landscape sunset');
+});
+
+test('AIC : mot-clé ajouté comme condition obligatoire', () => {
+  const url = new URL(aic.buildSearchUrl({ ...cleanCriteria(), motcle: 'water' }, 0, 6));
+  const { bool } = JSON.parse(url.searchParams.get('params')).query;
+  assert.equal(bool.must[0].multi_match.query, 'water');
+});
+
 test('Met : sans thème, on cherche « * »', () => {
   const url = new URL(met.buildSearchUrl(cleanCriteria(), 'Drawings', 0, 6));
   assert.equal(url.searchParams.get('q'), '*');
@@ -164,8 +175,8 @@ test('Met : sans thème, on cherche « * »', () => {
 
 test('cleanCriteria ignore les valeurs inconnues', () => {
   assert.deepEqual(
-    cleanCriteria({ theme: 'paysage', epoque: 'nimporte', support: '<script>' }),
-    { theme: 'paysage', epoque: '', support: '' },
+    cleanCriteria({ theme: 'paysage', epoque: 'nimporte', support: '<script>', motcle: 'a"b' }),
+    { theme: 'paysage', epoque: '', support: '', motcle: '' },
   );
 });
 
