@@ -14,7 +14,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
+import { searchBySupport, keywordsFor, paintedType } from './shared.js';
 
 const API = 'https://collectionapi.metmuseum.org/public/collection';
 const MAX_RESULTS = 10000; // offset + limit ne peut pas dépasser 10 000
@@ -23,8 +23,9 @@ export const id = 'met';
 export const label = 'The Metropolitan Museum of Art';
 
 // Valeurs du filtre `medium` du Met (sensibles à la casse).
-// Le Met a une catégorie à part pour les pastels, comptés ici comme peinture.
-const MEDIUMS = { peinture: 'Paintings', pastel: 'Pastels', dessin: 'Drawings' };
+// Le Met a des catégories à part pour les pastels et les aquarelles,
+// comptés ici comme peinture.
+const MEDIUMS = { peinture: 'Paintings', pastel: 'Pastels', aquarelle: 'Watercolors', dessin: 'Drawings' };
 
 /** URL de recherche pour UN support donné. Fonction pure → testable. */
 export function buildSearchUrl(criteria, medium, offset, limit) {
@@ -46,7 +47,7 @@ export function buildSearchUrl(criteria, medium, offset, limit) {
 
 function typeFromRaw(raw) {
   const text = `${raw.classification} ${raw.objectName}`.toLowerCase();
-  if (text.includes('painting') || text.includes('pastel')) return 'peinture';
+  if (text.includes('painting') || text.includes('pastel') || text.includes('watercolor')) return 'peinture';
   if (text.includes('drawing')) return 'dessin';
   return 'autre';
 }
@@ -69,7 +70,7 @@ export function normalize(raw) {
     // objectBeginDate vaut 0 quand la date est inconnue
     year: raw.objectDate && Number.isFinite(raw.objectBeginDate) ? raw.objectBeginDate : null,
     medium: raw.medium || '',
-    type: withPastelRule(typeFromRaw(raw), raw.medium),
+    type: paintedType(typeFromRaw(raw), raw.medium),
     thumbUrl: raw.primaryImageSmall,
     imageUrl: raw.primaryImageSmall,
     hdUrl: raw.primaryImage || raw.primaryImageSmall, // fichier original, parfois > 10 Mo

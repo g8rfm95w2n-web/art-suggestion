@@ -31,10 +31,15 @@ test('Mia : un pastel classé « Drawings » devient une peinture', () => {
   assert.equal(art.year, 1868); // « 1868–69 » → 1868
 });
 
-test('Mia : dessin, date approximative', () => {
+test('Mia : miniature « Opaque colors on paper » classée Drawings = peinture, date approximative', () => {
+  assert.equal(drawing.classification, 'Drawings');
   const art = mia.normalize(drawing);
-  assert.equal(art.type, 'dessin');
+  assert.equal(art.type, 'peinture'); // gouache opaque : une peinture sur papier
   assert.equal(art.year, 1720); // « c. 1720 »
+});
+
+test('Mia : un vrai dessin reste un dessin', () => {
+  assert.equal(mia.normalize({ ...drawing, medium: 'Black chalk on paper' }).type, 'dessin');
 });
 
 test('Mia : œuvres sous droits ou sans image écartées', () => {

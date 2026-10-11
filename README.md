@@ -54,13 +54,19 @@ appelle `onPart` à chaque réponse) : un musée lent ne retarde pas les autres.
 Un musée en panne (délai de 12 s dépassé) est mis de côté 5 minutes, pour ne
 pas ralentir chaque « Voir plus ».
 
-## Pastels = peinture
+## Œuvres en couleur = peinture
 
-Les musées rangent souvent les pastels parmi les dessins. Ici, toute œuvre dont
-la technique mentionne « pastel » est classée **peinture** (`isPastel` dans
-`js/connectors/shared.js`). Le filtre « Peinture et pastel » va donc aussi
-chercher les pastels (catégorie « Pastels » au Met, « pastel » au SMK,
-dessins dont la technique contient « pastel » au Mia, matériau « pastel » au Rijksmuseum), et le filtre « Dessin » les exclut.
+Les musées rangent parmi les « dessins » tout ce qui est fait sur papier, y
+compris des œuvres entièrement en couleur. Ici, toute œuvre dont la technique
+mentionne une matière colorée — pastel, aquarelle, gouache, détrempe, huile,
+acrylique, « pinceau en couleurs » — est classée **peinture** (`isColourMedium`
+dans `js/connectors/shared.js`, en anglais, français, danois et néerlandais).
+Exception : de simples rehauts de gouache **blanche** sur un dessin ne comptent pas.
+
+Le support « Peinture et couleur » va donc aussi chercher pastels et aquarelles
+là où chaque musée les range (catégories « Pastels » et « Watercolors » au Met,
+« pastel » et « akvarel » au SMK, technique au Mia et au Rijksmuseum), et le
+support « Dessin » les exclut.
 
 ## Mon tableau (favoris)
 

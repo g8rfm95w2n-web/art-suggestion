@@ -13,15 +13,15 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
+import { searchBySupport, keywordsFor, paintedType } from './shared.js';
 
 const API = 'https://api.smk.dk/api/v1';
 
 export const id = 'smk';
 export const label = 'SMK – Galerie nationale du Danemark';
 
-// Le SMK a une catégorie « pastel », comptée ici comme peinture.
-const OBJECT_NAMES = { peinture: 'maleri', pastel: 'pastel', dessin: 'tegning' };
+// Le SMK a des catégories « pastel » et « akvarel », comptées ici comme peinture.
+const OBJECT_NAMES = { peinture: 'maleri', pastel: 'pastel', aquarelle: 'akvarel', dessin: 'tegning' };
 // Champs demandés (réponse plus légère). Attention : « frontend_url » est
 // calculé par l'API et provoque une erreur 500 si on le demande ici.
 const FIELDS = [
@@ -104,8 +104,8 @@ function artistName(production = []) {
 
 function typeFromRaw(raw) {
   const name = (raw.object_names?.[0]?.name || '').toLowerCase();
-  if (name === 'maleri' || name === 'pastel') return 'peinture';
-  if (name === 'tegning' || name === 'akvarel') return 'dessin';
+  if (name === 'maleri' || name === 'pastel' || name === 'akvarel' || name === 'gouache') return 'peinture';
+  if (name === 'tegning') return 'dessin';
   return 'autre';
 }
 
@@ -132,7 +132,7 @@ export function normalize(raw) {
     date: date?.period || '',
     year: Number.isFinite(year) ? year : null,
     medium: translateTechnique(raw.techniques?.[0]),
-    type: withPastelRule(typeFromRaw(raw), raw.techniques?.[0]),
+    type: paintedType(typeFromRaw(raw), raw.techniques?.[0]),
     thumbUrl: smaller(raw.image_thumbnail),
     imageUrl: raw.image_thumbnail, // ~1024 px
     hdUrl: raw.image_native || raw.image_thumbnail,

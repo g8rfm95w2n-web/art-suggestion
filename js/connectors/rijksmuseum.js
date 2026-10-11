@@ -14,7 +14,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, withPastelRule } from './shared.js';
+import { searchBySupport, paintedType, isColourMedium } from './shared.js';
 
 const API = 'https://data.rijksmuseum.nl/search/collection';
 const PAGE_SIZE = 100; // taille fixe des pages de l'API
@@ -48,6 +48,7 @@ const EPOQUE_PATTERNS = {
 export function buildSearchUrl(criteria, kind) {
   const qs = new URLSearchParams({ imageAvailable: 'true', type: kind === 'peinture' ? 'painting' : 'drawing' });
   if (kind === 'pastel') qs.set('material', 'pastel');
+  if (kind === 'aquarelle') qs.set('material', 'watercolor');
   if (criteria.theme) qs.set('title', THEMES[criteria.theme].query);
   if (criteria.motcle) qs.set('description', criteria.motcle);
   if (criteria.epoque) qs.set('creationDate', EPOQUE_PATTERNS[criteria.epoque]);
@@ -113,7 +114,9 @@ export function normalize(object, image, kind = 'peinture') {
   const year = begin ? parseInt(begin.slice(0, 4), 10) : NaN;
   const objectNumber = (object.identified_by || []).find((x) => x.type === 'Identifier')?.content;
   const english = (object.referred_to_by || []).find((e) => isClassified(e, AAT.material) && hasLanguage(e, AAT.english));
-  const medium = english?.content || translateMedium(pick(object.referred_to_by, (e) => isClassified(e, AAT.material)));
+  const medium = english?.content || translateMedium(pick(object.referred_to_by, (e) => isClassified(e, AAT.material)))
+    // Trouvée par la recherche « aquarelle » mais sans technique décrite : on le sait déjà.
+    || (kind === 'aquarelle' ? 'aquarelle' : '');
   const type = kind === 'dessin' ? 'dessin' : 'peinture';
 
   return {
@@ -125,7 +128,7 @@ export function normalize(object, image, kind = 'peinture') {
     date: pick(producedBy.timespan?.identified_by),
     year: Number.isFinite(year) ? year : null,
     medium,
-    type: withPastelRule(type, medium),
+    type: paintedType(type, medium),
     thumbUrl: `${image.iiif}/full/400,/0/default.jpg`,
     imageUrl: `${image.iiif}/full/1200,/0/default.jpg`,
     hdUrl: `${image.iiif}/full/max/0/default.jpg`,
@@ -214,6 +217,6 @@ export async function getById(localId) {
   const art = await artwork(`https://id.rijksmuseum.nl/${localId}`);
   // Ouverte par un lien direct, on ne sait pas par quelle recherche l'œuvre a
   // été trouvée : on devine le type d'après sa technique.
-  if (art && !/oil|olieverf|huile|tempera|pastel/i.test(art.medium)) art.type = 'dessin';
+  if (art && !isColourMedium(art.medium)) art.type = 'dessin';
   return art;
 }

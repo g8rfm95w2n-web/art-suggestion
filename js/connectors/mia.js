@@ -11,7 +11,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
+import { searchBySupport, keywordsFor, paintedType } from './shared.js';
 
 const API = 'https://search.artsmia.org';
 const IMAGES = 'https://1.api.artsmia.org';
@@ -22,11 +22,12 @@ export const label = 'Minneapolis Institute of Art';
 
 const BASE = ['rights_type:"Public Domain"', 'image:valid', 'public_access:1'];
 
-// Conditions par « sorte » d'œuvre. Les pastels sont classés parmi les dessins ;
-// la règle « pastel = peinture » (shared.js) les retire ensuite des dessins.
+// Conditions par « sorte » d'œuvre. Pastels et aquarelles sont classés parmi
+// les dessins ; la règle de shared.js les retire ensuite des dessins.
 const KIND_CONDITIONS = {
   peinture: ['classification:Paintings'],
   pastel: ['classification:Drawings', 'medium:pastel'],
+  aquarelle: ['classification:Drawings', '(medium:watercolor OR medium:gouache OR medium:tempera)'],
   dessin: ['classification:Drawings'],
 };
 
@@ -71,7 +72,7 @@ export function normalize(raw) {
     date: raw.dated || '',
     year: Number.isFinite(year) ? year : null,
     medium,
-    type: withPastelRule(typeFromRaw(raw), medium),
+    type: paintedType(typeFromRaw(raw), medium),
     thumbUrl: `${IMAGES}/${raw.id}.jpg`,      // 400 px
     imageUrl: `${IMAGES}/800/${raw.id}.jpg`,  // 800 px
     hdUrl: `${IMAGES}/full/${raw.id}.jpg`,    // original, plusieurs Mo
