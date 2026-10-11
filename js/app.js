@@ -62,7 +62,7 @@ function queryString(params) {
 
 const gridHash = (criteria, level) => `#/${queryString({ ...criteria, difficulte: level })}`;
 const detailHash = (id, criteria, fromSurprise = false) =>
-  `#/oeuvre/${id}${queryString({ ...criteria, difficulte: difficulty, hasard: fromSurprise ? '1' : '' })}`;
+  `#/oeuvre/${encodeURIComponent(id)}${queryString({ ...criteria, difficulte: difficulty, hasard: fromSurprise ? '1' : '' })}`;
 
 function parseHash() {
   const hash = location.hash.slice(1) || '/'; // retire le « # »
@@ -269,7 +269,7 @@ async function showDetail(id, criteria, params, token) {
   document.title = `${art.title} — ${APP_TITLE}`;
   renderDetail(view, art, {
     backHref,
-    copyHref: `#/copie/${art.id}${queryString(params)}`,
+    copyHref: `#/copie/${encodeURIComponent(art.id)}${queryString(params)}`,
     backLabel: fromBoard ? 'Mon tableau' : 'Résultats',
     onSurprise: params.hasard === '1' ? () => doSurprise(criteria, difficulty) : null,
   });
@@ -290,7 +290,7 @@ async function showCopy(id, params, token) {
   }
   known.set(art.id, art);
   document.title = `Copie : ${art.title} — ${APP_TITLE}`;
-  cleanupView = renderCopy(view, art, { backHref: `#/oeuvre/${art.id}${queryString(params)}` });
+  cleanupView = renderCopy(view, art, { backHref: `#/oeuvre/${encodeURIComponent(art.id)}${queryString(params)}` });
 }
 
 function showBoard(params) {

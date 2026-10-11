@@ -23,7 +23,8 @@ export const STATUSES = {
 /** Vérifie qu'une entrée importée a la bonne forme ; renvoie l'entrée nettoyée ou null. */
 export function validateEntry(entry) {
   const art = entry?.art;
-  if (!art || typeof art.id !== 'string' || !/^[a-z]+:\w+$/.test(art.id)) return null;
+  // Identifiant « source:numéro » ; le numéro peut contenir / ou espace (SMK).
+  if (!art || typeof art.id !== 'string' || !/^[a-z]+:\S.{0,100}$/.test(art.id)) return null;
   if (typeof art.thumbUrl !== 'string' || !art.thumbUrl.startsWith('https://')) return null;
   return {
     art,

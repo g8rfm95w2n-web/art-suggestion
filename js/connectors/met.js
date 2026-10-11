@@ -14,7 +14,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { interleave } from '../utils.js';
+import { searchBySupport, keywordsFor } from './shared.js';
 
 const API = 'https://collectionapi.metmuseum.org/public/collection';
 const MAX_RESULTS = 10000; // offset + limit ne peut pas dépasser 10 000
@@ -31,7 +31,7 @@ export function buildSearchUrl(criteria, medium, offset, limit) {
     hasImages: 'true',
     medium,
     // `q` est obligatoire ; « * » signifie « tout ». Plusieurs mots = ET.
-    q: [criteria.theme && THEMES[criteria.theme].query, criteria.motcle].filter(Boolean).join(' ') || '*',
+    q: keywordsFor(criteria, THEMES) || '*',
     offset: String(offset),
     limit: String(limit),
   });
@@ -78,31 +78,20 @@ export function normalize(raw) {
 }
 
 /** Recherche paginée → { total, items } */
-export async function search(criteria, page, perPage) {
-  const supports = criteria.support ? [criteria.support] : Object.keys(MEDIUMS);
-  // Avec deux supports, chacun fournit la moitié de la page.
-  const share = Math.ceil(perPage / supports.length);
-  const offset = page * share;
-  if (offset + share > MAX_RESULTS) return { total: MAX_RESULTS, items: [] };
-
-  const results = await Promise.all(
-    supports.map((s) => fetchJson(buildSearchUrl(criteria, MEDIUMS[s], offset, share))),
-  );
-  const total = results.reduce((sum, r) => sum + Math.min(r?.total || 0, MAX_RESULTS), 0);
-
-  // On retient par quel support chaque œuvre a été trouvée : utile quand
-  // sa fiche ne permet pas de deviner le type (ex. une aquarelle classée « Paintings »).
-  const supportOf = new Map();
-  results.forEach((r, i) => (r?.objectIDs || []).forEach((oid) => supportOf.set(oid, supports[i])));
-  const ids = interleave(results.map((r) => r?.objectIDs || []));
-
-  // Une requête par œuvre (limitées et mises en cache par fetchJson).
-  const objects = await Promise.all(ids.map((oid) => fetchJson(`${API}/v1/objects/${oid}`)));
-  const items = objects
-    .map(normalize)
-    .filter(Boolean)
-    .map((a) => (a.type === 'autre' ? { ...a, type: supportOf.get(Number(a.id.slice(4))) } : a));
-  return { total, items };
+export function search(criteria, page, perPage) {
+  return searchBySupport(criteria, page, perPage, async (support, offset, limit) => {
+    const result = await fetchJson(buildSearchUrl(criteria, MEDIUMS[support], offset, limit));
+    // Une requête par œuvre (limitées et mises en cache par fetchJson).
+    const objects = await Promise.all(
+      (result?.objectIDs || []).map((oid) => fetchJson(`${API}/v1/objects/${oid}`)),
+    );
+    const items = objects
+      .map(normalize)
+      .filter(Boolean)
+      // Fiche ambiguë (ex. aquarelle classée « Paintings ») : on sait par quel support on l'a trouvée.
+      .map((a) => (a.type === 'autre' ? { ...a, type: support } : a));
+    return { total: result?.total || 0, items };
+  }, MAX_RESULTS);
 }
 
 /** Une œuvre par son identifiant Met (la partie après « met: »). */

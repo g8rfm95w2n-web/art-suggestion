@@ -1,10 +1,15 @@
 # Modèles à copier
 
 Site web perso pour trouver des peintures et dessins **du domaine public** à copier
-pour s'entraîner. Les données viennent des API ouvertes du
-[Metropolitan Museum of Art](https://metmuseum.github.io/) et de
-l'[Art Institute of Chicago](https://api.artic.edu/docs/), appelées directement
-depuis le navigateur. Le site est 100 % statique (HTML/CSS/JS) et 100 % gratuit.
+pour s'entraîner. Le site est 100 % statique (HTML/CSS/JS) et 100 % gratuit.
+Les données viennent d'API ouvertes, sans clé, appelées directement depuis le navigateur :
+
+| Source | Connecteur | Particularités |
+|---|---|---|
+| [Metropolitan Museum of Art](https://metmuseum.github.io/) | `met.js` | recherche → identifiants, puis 1 requête par œuvre |
+| [Art Institute of Chicago](https://api.artic.edu/docs/) | `aic.js` | requête Elasticsearch, images IIIF |
+| [Cleveland Museum of Art](https://openaccess-api.clevelandart.org/) | `cleveland.js` | images sans CORS : **pas de palette ni de difficulté** |
+| [SMK, Danemark](https://api.smk.dk/api/v1/docs/) | `smk.js` | données en danois : titre français si disponible, techniques traduites |
 
 ## Lancer en local
 
@@ -37,7 +42,7 @@ js/cache.js            cache IndexedDB (7 jours)
 js/analysis.js         palette et difficulté (canvas, calcul local)
 js/favorites.js        tableau d'inspiration (localStorage) + export/import
 js/envies.js           recherche par « envie » : dictionnaire français → filtres
-js/connectors/         un fichier par musée (aic.js, met.js) + index.js (registre)
+js/connectors/         un fichier par musée + shared.js (outils communs) + index.js (registre)
 js/ui/                 grille, page détail, « Mon tableau », mode copie
 tests/                 tests de normalisation, sur de vraies réponses enregistrées
 ```

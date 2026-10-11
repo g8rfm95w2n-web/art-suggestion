@@ -1,0 +1,86 @@
+[
+  {
+    "object_number": "KMSr27",
+    "titles": [
+      {
+        "title": "Portrait de Madame Derain",
+        "type": "museumstitel",
+        "language": "fransk"
+      },
+      {
+        "title": "Portræt af Madame Derain",
+        "language": "dansk"
+      }
+    ],
+    "production": [
+      {
+        "creator": "Derain, André",
+        "creator_forename": "André",
+        "creator_surname": "Derain",
+        "creator_date_of_birth": "1880-01-01T00:00:00.000Z",
+        "creator_date_of_death": "1954-01-01T00:00:00.000Z",
+        "creator_nationality": "Fransk",
+        "creator_gender": "MALE",
+        "creator_lref": "1622_person"
+      }
+    ],
+    "production_date": [
+      {
+        "start": "1923-01-01T00:00:00.000Z",
+        "end": "1923-12-31T00:00:00.000Z",
+        "period": "1923"
+      }
+    ],
+    "techniques": [
+      "Olie på lærred"
+    ],
+    "object_names": [
+      {
+        "name": "Maleri"
+      }
+    ],
+    "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/sx61dq35x_KMSr27.tif.reconstructed.tif.jp2/full/!1024,/0/default.jpg",
+    "image_native": "https://api.smk.dk/api/v1/download/W3siaW1nX3VybCI6Imh0dHBzOi8vaWlwLnNtay5kay9paWlmL2pwMi9zeDYxZHEzNXhfS01TcjI3LnRpZi5yZWNvbnN0cnVjdGVkLnRpZi5qcDIvZnVsbC9mdWxsLzAvbmF0aXZlLmpwZyIsInB1YmxpY19kb21haW4iOnRydWUsIm9iamVjdF9udW1iZXIiOiJLTVNyMjciLCJudW0iOiIifV0=/KMSr27.jpg",
+    "public_domain": true,
+    "content_subject": null
+  },
+  {
+    "object_number": "KKSgb6775/3",
+    "titles": [
+      {
+        "title": "Den hollandske flåde på Københavns Red 1658",
+        "language": "dansk"
+      }
+    ],
+    "production": [
+      {
+        "creator": "Velde, Willem I van de",
+        "creator_forename": "Willem I van de",
+        "creator_surname": "Velde",
+        "creator_date_of_birth": "1611-01-01T00:00:00.000Z",
+        "creator_date_of_death": "1693-01-01T00:00:00.000Z",
+        "creator_gender": "MALE",
+        "creator_lref": "30436_person"
+      }
+    ],
+    "production_date": [
+      {
+        "start": "1658-01-01T00:00:00.000Z",
+        "end": "1658-12-31T00:00:00.000Z",
+        "period": "1658"
+      }
+    ],
+    "techniques": [
+      "Pensel og tusch"
+    ],
+    "object_names": [
+      {
+        "name": "Tegning"
+      }
+    ],
+    "image_thumbnail": "https://iip-thumb.smk.dk/iiif/jp2/tb09j939k_KKSgb6775_3_crop.tif.jp2/full/!1024,/0/default.jpg",
+    "image_native": "https://api.smk.dk/api/v1/download/W3siaW1nX3VybCI6Imh0dHBzOi8vaWlwLnNtay5kay9paWlmL2pwMi90YjA5ajkzOWtfS0tTZ2I2Nzc1XzNfY3JvcC50aWYuanAyL2Z1bGwvZnVsbC8wL25hdGl2ZS5qcGciLCJwdWJsaWNfZG9tYWluIjp0cnVlLCJvYmplY3RfbnVtYmVyIjoiS0tTZ2I2Nzc1LzMiLCJudW0iOiIifV0=/KKSgb6775/3.jpg",
+    "public_domain": true,
+    "content_subject": null
+  }
+]

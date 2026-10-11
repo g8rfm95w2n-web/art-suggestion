@@ -19,7 +19,7 @@ export function renderBoard(container, status) {
       </a>`).join('');
 
   const cards = shown.map(({ art, status: s, notes }) => `
-    <a class="card" href="#/oeuvre/${esc(art.id)}?from=tableau">
+    <a class="card" href="#/oeuvre/${esc(encodeURIComponent(art.id))}?from=tableau">
       <div class="card-thumb">
         <img src="${esc(art.thumbUrl)}" alt="${esc(art.title)}" loading="lazy">
         <span class="status status-${s}">${STATUSES[s]}</span>

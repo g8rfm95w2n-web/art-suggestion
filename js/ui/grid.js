@@ -8,7 +8,7 @@ import { getFavorite } from '../favorites.js';
 function cardHtml(art) {
   const fav = getFavorite(art.id) ? '<span class="card-fav" title="Dans mon tableau">★</span>' : '';
   return `
-    <a class="card" href="#/oeuvre/${esc(art.id)}" data-id="${esc(art.id)}">
+    <a class="card" href="#/oeuvre/${esc(encodeURIComponent(art.id))}" data-id="${esc(art.id)}">
       <div class="card-thumb">
         <img src="${esc(art.thumbUrl)}" alt="${esc(art.title)}" loading="lazy" decoding="async">
         ${fav}
