@@ -1,0 +1,2124 @@
+[
+ {
+  "id": "https://id.rijksmuseum.nl/200106038",
+  "type": "HumanMadeObject",
+  "identified_by": [
+   {
+    "id": "_:b69",
+    "type": "Name",
+    "content": "Landschap met stenen brug",
+    "identified_by": [
+     {
+      "id": "_:b252",
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300417200",
+      "type": "Type"
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "Name",
+    "content": "The Stone Bridge",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "2",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "https://id.rijksmuseum.nl/22015528",
+      "type": "Type",
+      "notation": [
+       {
+        "@language": "en",
+        "@value": "former title"
+       },
+       {
+        "@language": "nl",
+        "@value": "voormalige titel"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ],
+    "translation_of": [
+     {
+      "id": "_:b71",
+      "type": "Name",
+      "content": "De stenen brug",
+      "identified_by": [
+       {
+        "id": "_:b254",
+        "type": "Identifier",
+        "content": "2",
+        "classified_as": [
+         {
+          "id": "http://vocab.getty.edu/aat/300456575",
+          "type": "Type"
+         }
+        ]
+       }
+      ],
+      "classified_as": [
+       {
+        "id": "https://id.rijksmuseum.nl/22015528",
+        "type": "Type",
+        "notation": [
+         {
+          "@language": "en",
+          "@value": "former title"
+         },
+         {
+          "@language": "nl",
+          "@value": "voormalige titel"
+         }
+        ]
+       }
+      ],
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "_:b71",
+    "type": "Name",
+    "content": "De stenen brug",
+    "identified_by": [
+     {
+      "id": "_:b254",
+      "type": "Identifier",
+      "content": "2",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "https://id.rijksmuseum.nl/22015528",
+      "type": "Type",
+      "notation": [
+       {
+        "@language": "en",
+        "@value": "former title"
+       },
+       {
+        "@language": "nl",
+        "@value": "voormalige titel"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "id": "_:b72",
+    "type": "Name",
+    "content": "Landscape with a Stone Bridge",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300417207",
+      "type": "Type"
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "id": "_:b73",
+    "type": "Name",
+    "content": "Landschap met stenen brug",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300417207",
+      "type": "Type"
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "Name",
+    "content": "Landscape with Stone Bridge",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300417200",
+      "type": "Type"
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ],
+    "translation_of": [
+     {
+      "id": "_:b69",
+      "type": "Name",
+      "content": "Landschap met stenen brug",
+      "identified_by": [
+       {
+        "id": "_:b252",
+        "type": "Identifier",
+        "content": "1",
+        "classified_as": [
+         {
+          "id": "http://vocab.getty.edu/aat/300456575",
+          "type": "Type"
+         }
+        ]
+       }
+      ],
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300417200",
+        "type": "Type"
+       }
+      ],
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "type": "Identifier",
+    "content": "SK-A-1935",
+    "classified_as": [
+     {
+      "id": "https://id.rijksmuseum.nl/22015218",
+      "type": "Type",
+      "notation": [
+       {
+        "@language": "nl",
+        "@value": "objectnummer"
+       },
+       {
+        "@language": "en",
+        "@value": "object number"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300312355",
+      "type": "Type"
+     }
+    ]
+   }
+  ],
+  "produced_by": {
+   "type": "Production",
+   "technique": [
+    {
+     "id": "https://id.rijksmuseum.nl/2204040",
+     "type": "Type",
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "assigned_by": [
+        {
+         "type": "AttributeAssignment",
+         "assigned": [
+          "https://id.rijksmuseum.nl/200106038"
+         ],
+         "assigned_property": "influenced_by"
+        }
+       ],
+       "content": "1",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "notation": [
+      {
+       "@language": "en",
+       "@value": "paint"
+      },
+      {
+       "@language": "nl",
+       "@value": "schilderen"
+      }
+     ],
+     "equivalent": [
+      {
+       "id": "http://vocab.getty.edu/aat/300054216",
+       "type": "Type"
+      }
+     ]
+    }
+   ],
+   "timespan": {
+    "type": "TimeSpan",
+    "identified_by": [
+     {
+      "type": "Name",
+      "content": "c. 1638",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388277",
+        "type": "Language"
+       }
+      ]
+     },
+     {
+      "type": "Name",
+      "content": "ca. 1638",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     }
+    ],
+    "begin_of_the_begin": "1638-01-01T00:00:00Z",
+    "end_of_the_end": "1638-12-31T23:59:59Z"
+   },
+   "referred_to_by": [
+    {
+     "type": "LinguisticObject",
+     "content": "Rembrandt van Rijn",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388256",
+       "type": "Language"
+      }
+     ]
+    },
+    {
+     "type": "LinguisticObject",
+     "content": "Rembrandt van Rijn",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388277",
+       "type": "Language"
+      }
+     ]
+    }
+   ],
+   "part": [
+    {
+     "type": "Production",
+     "carried_out_by": [
+      {
+       "id": "https://id.rijksmuseum.nl/2103429",
+       "type": "Person",
+       "notation": [
+        {
+         "@language": "en",
+         "@value": "Rembrandt van Rijn"
+        },
+        {
+         "@language": "nl",
+         "@value": "Rembrandt van Rijn"
+        }
+       ],
+       "equivalent": [
+        {
+         "id": "http://viaf.org/viaf/64013650",
+         "type": "Person"
+        },
+        {
+         "id": "http://vocab.getty.edu/ulan/500011051",
+         "type": "Person"
+        },
+        {
+         "id": "https://rkd.nl/artists/66219",
+         "type": "Person"
+        },
+        {
+         "id": "http://www.wikidata.org/entity/Q5598",
+         "type": "Person"
+        }
+       ]
+      }
+     ],
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "content": "1",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300404450",
+       "type": "Type"
+      }
+     ],
+     "technique": [
+      {
+       "id": "https://id.rijksmuseum.nl/2202217",
+       "type": "Type",
+       "notation": [
+        {
+         "@language": "en",
+         "@value": "painter"
+        },
+        {
+         "@language": "nl",
+         "@value": "schilder"
+        }
+       ],
+       "equivalent": [
+        {
+         "id": "http://vocab.getty.edu/aat/300025136",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "referred_to_by": [
+      {
+       "type": "LinguisticObject",
+       "content": "Rembrandt van Rijn",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "painter: Rembrandt van Rijn",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "Rembrandt van Rijn",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "schilder: Rembrandt van Rijn",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "referred_to_by": [
+   {
+    "type": "LinguisticObject",
+    "content": "Aankoop met steun van de Vereniging Rembrandt en de heer A. Bredius, Amsterdam",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "height 29.5 cm x width 42.5 cm x depth 5.5 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "Purchased with the support of the Vereniging Rembrandt and A. Bredius, Amsterdam",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "oil on panel",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435429",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "… ; ? sale, Aubert fils, Paris (A.J. Paillet), 17 April 1806, no. 38 ('Un charmant Point de vue de Paysage offrant un Massif d'arbres dans le milieu où sont groupées quelques Chaumières ; tout le premier Plan est occupé par une Rivière et un Pont rustique. Ce Tableau, d'une admirable harmonie de couleurs, présente un des Ouvrages du meilleur goût d'étude de ce grand coloriste'.), fr. 250, to the dealer B. Montigneul;{Copy BNP; GPI, no. F-101.} … ; sale, J.J.P.A. Lapeyrière (1779-1831, Paris), Paris (A.N. Pérignon), 14 April 1817 <em>sqq.</em>, no. 46 ('Un charmant Paysage, d'une vérité, d'une force d'effet et de couleur réellement admirables. On y voit un canal qui part du premier plan, et se prolonge vers la gauche: il est traversée par un pont, et bordé à droite et à gauche par des prairies et quelques chaumières entourées d'arbres. On remarque quelques bateliers dans leurs barques, et un charriot sur un chemin à gauche. Le peintre a disposé son principal foyer de lumière sur une chaumière et un bouquet d'arbres placé au milieu, en plan reculé. Tout le reste du paysage est sacrifié dans une savante demi-teinte. Un ciel harmonieux et savamment dégradé, éclaire ce Tableau dont la rareté et la perfection font un objet très-marquant, malgré sa petite dimension. sur bois, Larg. 16 p., Haut. 11 p. [29.7 x 43.2 cm]'), fr. 1505, to C.W. Huybens for the dealer W. Buchanan;{Copy RKD. The catalogue text is on a label on the reverse of the painting.} by whom sold to Edward Gray (?-1838), Harringay House, Hornsey, Middlesex, by 1824;{Buchanan 1824, II, p. 298.} … ; collection Henry Petty-Fitzmaurice (1780-1863), 3rd Marquess of Lansdowne, Bowood House, Calne, Wiltshire, by 1850;{Waagen1854, III, p. 164, who saw it there in 1850: 'Rembrandt - 2. A flat country in rainy weather, with the rays of the evening sun falling upon a bridge, and illuminating two houses and trees'.} his son, Henry Petty-Fitzmaurice (1816-66), 4th Marquess of Lansdowne, Bowood House, Calne, Wiltshire; his son, Henry Charles Keith Petty-Fitzmaurice (1845-1927), 5th Marquess of Lansdowne, Bowood House, Calne, Wiltshire; by whom sold, 1883;{Dutuit 1885, p. 46.} … ; sale, James Reiss (1812-99, Manchester and London), London (Christie's), 12 May 1900, no. 63, gns 2,200, to the museum with support from the Vereniging Rembrandt and Dr Abraham Bredius",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300444174",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "olieverf op paneel",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435429",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "hoogte 29,5 cm x breedte 42,5 cm x diepte 5,5 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "De stenen brug. Landschap met een stenen brug over een rivier of vaart. Op het water bevinden zich twee bootjes met figuren. Op de weg lopen verschillende personen, links een wagen. In het midden een hooischuur tussen bomen, rechts in de verte een kerktoren.",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435452",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ],
+    "created_by": {
+     "type": "Creation",
+     "timespan": {
+      "type": "TimeSpan",
+      "identified_by": [
+       {
+        "type": "Name",
+        "content": "2001-03-07",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388256",
+          "type": "Language"
+         }
+        ]
+       },
+       {
+        "type": "Name",
+        "content": "2001-03-07",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388277",
+          "type": "Language"
+         }
+        ]
+       }
+      ],
+      "begin_of_the_begin": "2001-03-07T00:00:00Z",
+      "end_of_the_end": "2001-03-07T23:59:59Z"
+     }
+    }
+   }
+  ],
+  "shows": [
+   {
+    "id": "https://id.rijksmuseum.nl/202106038",
+    "type": "VisualItem"
+   }
+  ]
+ },
+ {
+  "id": "https://id.rijksmuseum.nl/20010073",
+  "type": "HumanMadeObject",
+  "identified_by": [
+   {
+    "type": "Identifier",
+    "content": "RP-T-1921-120",
+    "classified_as": [
+     {
+      "id": "https://id.rijksmuseum.nl/22015218",
+      "type": "Type",
+      "notation": [
+       {
+        "@language": "nl",
+        "@value": "objectnummer"
+       },
+       {
+        "@language": "en",
+        "@value": "object number"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300312355",
+      "type": "Type"
+     }
+    ]
+   },
+   {
+    "type": "Name",
+    "content": "Het Armenhuis te Rotterdam",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type"
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300417200",
+      "type": "Type"
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   }
+  ],
+  "produced_by": {
+   "type": "Production",
+   "technique": [
+    {
+     "id": "https://id.rijksmuseum.nl/2202953",
+     "type": "Type",
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "assigned_by": [
+        {
+         "type": "AttributeAssignment",
+         "assigned": [
+          "https://id.rijksmuseum.nl/20010073"
+         ],
+         "assigned_property": "influenced_by"
+        }
+       ],
+       "content": "2",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "notation": [
+      {
+       "@language": "nl",
+       "@value": "penseel"
+      },
+      {
+       "@language": "en",
+       "@value": "brush"
+      }
+     ],
+     "equivalent": [
+      {
+       "id": "http://vocab.getty.edu/aat/300054216",
+       "type": "Type"
+      }
+     ]
+    },
+    {
+     "id": "https://id.rijksmuseum.nl/2202293",
+     "type": "Type",
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "assigned_by": [
+        {
+         "type": "AttributeAssignment",
+         "assigned": [
+          "https://id.rijksmuseum.nl/20010073"
+         ],
+         "assigned_property": "influenced_by"
+        }
+       ],
+       "content": "1",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "notation": [
+      {
+       "@language": "nl",
+       "@value": "pen"
+      },
+      {
+       "@language": "en",
+       "@value": "pen"
+      }
+     ]
+    }
+   ],
+   "timespan": {
+    "type": "TimeSpan",
+    "identified_by": [
+     {
+      "type": "Name",
+      "content": "1790",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     },
+     {
+      "type": "Name",
+      "content": "1790",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388277",
+        "type": "Language"
+       }
+      ]
+     }
+    ],
+    "begin_of_the_begin": "1790-01-01T00:00:00Z",
+    "end_of_the_end": "1790-12-31T23:59:59Z"
+   },
+   "referred_to_by": [
+    {
+     "type": "LinguisticObject",
+     "content": "Jan Bulthuis",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388256",
+       "type": "Language"
+      }
+     ]
+    },
+    {
+     "type": "LinguisticObject",
+     "content": "Jan Bulthuis",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388277",
+       "type": "Language"
+      }
+     ]
+    }
+   ],
+   "part": [
+    {
+     "type": "Production",
+     "carried_out_by": [
+      {
+       "id": "https://id.rijksmuseum.nl/21010785",
+       "type": "Person",
+       "notation": [
+        {
+         "@language": "nl",
+         "@value": "Jan Bulthuis"
+        },
+        {
+         "@language": "en",
+         "@value": "Jan Bulthuis"
+        }
+       ],
+       "equivalent": [
+        {
+         "id": "https://rkd.nl/artists/14008",
+         "type": "Person"
+        },
+        {
+         "id": "http://viaf.org/viaf/7656225",
+         "type": "Person"
+        },
+        {
+         "id": "http://www.wikidata.org/entity/Q2172902",
+         "type": "Person"
+        },
+        {
+         "id": "http://vocab.getty.edu/ulan/500026621",
+         "type": "Person"
+        }
+       ]
+      }
+     ],
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "content": "1",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300404450",
+       "type": "Type"
+      }
+     ],
+     "technique": [
+      {
+       "id": "https://id.rijksmuseum.nl/2202371",
+       "type": "Type",
+       "notation": [
+        {
+         "@language": "en",
+         "@value": "draftsman (artist)"
+        },
+        {
+         "@language": "nl",
+         "@value": "tekenaar"
+        }
+       ],
+       "equivalent": [
+        {
+         "id": "http://vocab.getty.edu/aat/300112172",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "referred_to_by": [
+      {
+       "type": "LinguisticObject",
+       "content": "Jan Bulthuis",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "Jan Bulthuis",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "tekenaar: Jan Bulthuis",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "draftsman (artist): Jan Bulthuis",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "referred_to_by": [
+   {
+    "type": "LinguisticObject",
+    "content": "Legaat van de heer J.G. de Groot Jamin, Amsterdam",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "height 79 mm x width 104 mm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "pen en penseel in grijs",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435429",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "hoogte 79 mm x breedte 104 mm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "J.G. de Groot Jamin Bequest, Amsterdam",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   }
+  ],
+  "shows": [
+   {
+    "id": "https://id.rijksmuseum.nl/20210073",
+    "type": "VisualItem"
+   }
+  ]
+ },
+ {
+  "id": "https://id.rijksmuseum.nl/200107782",
+  "type": "HumanMadeObject",
+  "identified_by": [
+   {
+    "id": "_:b14",
+    "type": "Name",
+    "content": "Wintergezicht nabij een stad",
+    "identified_by": [
+     {
+      "id": "_:b59",
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300417200",
+      "type": "Type"
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "Identifier",
+    "content": "SK-A-3256",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300312355",
+      "type": "Type"
+     },
+     {
+      "id": "https://id.rijksmuseum.nl/22015218",
+      "type": "Type",
+      "notation": [
+       {
+        "@language": "nl",
+        "@value": "objectnummer"
+       },
+       {
+        "@language": "en",
+        "@value": "object number"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "type": "Name",
+    "content": "Winter Landscape near a Town with Bare Trees",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300417200",
+      "type": "Type"
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ],
+    "translation_of": [
+     {
+      "id": "_:b14",
+      "type": "Name",
+      "content": "Wintergezicht nabij een stad",
+      "identified_by": [
+       {
+        "id": "_:b59",
+        "type": "Identifier",
+        "content": "1",
+        "classified_as": [
+         {
+          "id": "http://vocab.getty.edu/aat/300456575",
+          "type": "Type"
+         }
+        ]
+       }
+      ],
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300404670",
+        "type": "Type",
+        "classified_as": [
+         {
+          "id": "http://vocab.getty.edu/aat/300418049",
+          "type": "Type",
+          "_label": "brief text"
+         }
+        ]
+       },
+       {
+        "id": "http://vocab.getty.edu/aat/300417200",
+        "type": "Type"
+       }
+      ],
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "produced_by": {
+   "type": "Production",
+   "timespan": {
+    "type": "TimeSpan",
+    "identified_by": [
+     {
+      "type": "Name",
+      "content": "c. 1650 - c. 1655",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388277",
+        "type": "Language"
+       }
+      ]
+     },
+     {
+      "type": "Name",
+      "content": "ca. 1650 - ca. 1655",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     }
+    ],
+    "begin_of_the_begin": "1650-01-01T00:00:00Z",
+    "end_of_the_end": "1655-12-31T23:59:59Z"
+   },
+   "referred_to_by": [
+    {
+     "type": "LinguisticObject",
+     "content": "Aert van der Neer (mentioned on object)",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388277",
+       "type": "Language"
+      }
+     ]
+    },
+    {
+     "type": "LinguisticObject",
+     "content": "Aert van der Neer (vermeld op object)",
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300435416",
+       "type": "Type"
+      }
+     ],
+     "language": [
+      {
+       "id": "http://vocab.getty.edu/aat/300388256",
+       "type": "Language"
+      }
+     ]
+    }
+   ],
+   "part": [
+    {
+     "type": "Production",
+     "assigned_by": [
+      {
+       "type": "AttributeAssignment",
+       "assigned": [
+        {
+         "id": "https://id.rijksmuseum.nl/2101142",
+         "type": "Person"
+        }
+       ],
+       "assigned_property": "carried_out_by",
+       "motivated_by": [
+        {
+         "type": "LinguisticObject",
+         "carried_by": [
+          "https://id.rijksmuseum.nl/200107782"
+         ],
+         "classified_as": [
+          {
+           "id": "http://vocab.getty.edu/aat/300028702",
+           "type": "Type"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "identified_by": [
+      {
+       "type": "Identifier",
+       "content": "1",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300456575",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "classified_as": [
+      {
+       "id": "http://vocab.getty.edu/aat/300404450",
+       "type": "Type"
+      }
+     ],
+     "technique": [
+      {
+       "id": "https://id.rijksmuseum.nl/2202217",
+       "type": "Type",
+       "notation": [
+        {
+         "@language": "en",
+         "@value": "painter"
+        },
+        {
+         "@language": "nl",
+         "@value": "schilder"
+        }
+       ],
+       "equivalent": [
+        {
+         "id": "http://vocab.getty.edu/aat/300025136",
+         "type": "Type"
+        }
+       ]
+      }
+     ],
+     "referred_to_by": [
+      {
+       "type": "LinguisticObject",
+       "content": "Aert van der Neer (vermeld op object)",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "schilder: Aert van der Neer (vermeld op object)",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388256",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "Aert van der Neer (mentioned on object)",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435417",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      },
+      {
+       "type": "LinguisticObject",
+       "content": "painter: Aert van der Neer (mentioned on object)",
+       "classified_as": [
+        {
+         "id": "http://vocab.getty.edu/aat/300435416",
+         "type": "Type"
+        }
+       ],
+       "language": [
+        {
+         "id": "http://vocab.getty.edu/aat/300388277",
+         "type": "Language"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "referred_to_by": [
+   {
+    "type": "LinguisticObject",
+    "content": "support: height 55 cm x height 100 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "width 63.5 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "2",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "Gift of H.W.A. Deterding, London",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "Riviergezicht bij winter. Gezicht op een bevroren vaart met op het ijs kolfspelers en schaatsers. Aan de linkeroever een kerk en huizen, aan de rechterzijde enkele boerderijen.",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300404670",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     },
+     {
+      "id": "http://vocab.getty.edu/aat/300435452",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ],
+    "created_by": {
+     "type": "Creation",
+     "timespan": {
+      "type": "TimeSpan",
+      "identified_by": [
+       {
+        "type": "Name",
+        "content": "2001-02-23",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388256",
+          "type": "Language"
+         }
+        ]
+       },
+       {
+        "type": "Name",
+        "content": "2001-02-23",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388277",
+          "type": "Language"
+         }
+        ]
+       }
+      ],
+      "begin_of_the_begin": "2001-02-23T00:00:00Z",
+      "end_of_the_end": "2001-02-23T23:59:59Z"
+     }
+    }
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "…; ? collection P.J.F. Vrancken (1757-1833), Lokeren;{C.J. Nieuwenhuys, _<em>A Review of the Lives and Works of Some of the Most Eminent Painters: With Remarks on the Opinions and Statements of Former Writers</em>_, London 1834, p. 165. See also the following note.} ? from whom, fr. 3,000, to the dealer Christianus Johannes Nieuwenhuys, Amsterdam and London, 1825;{C.J. Nieuwenhuys, _<em>A Review of the Lives and Works of Some of the Most Eminent Painters: With Remarks on the Opinions and Statements of Former Writers</em>_, London 1834, p. 165: ‘39. Winter. Canvas; height 21¼ inches, width 24½. A frozen canal, where several persons are assembled, forms the point of view in this picture. Every season brings its peculiar amusements: thus men, women and children are seen diverting themselves on the ice, some in skating, some on sledges, and others playing at bat and ball. Some isolated trees on the border of the canal, although bereft of their foliage, embellish the scene by the elegance of their forms. In the distance is a village, its dwellings half hidden beneath the snow. The frosty atmosphere is depicted with remarkable talent. […] It comes from the Collection of Mr Vranken in Lokeren, and I gave him 3,000 francs for it in 1825. £98. 14s. Now in the Cabinet of Henry Bevan, Esq.’} ? from whom, to Henry Bevan, Esq.;{C.J. Nieuwenhuys, _<em>A Review of the Lives and Works of Some of the Most Eminent Painters: With Remarks on the Opinions and Statements of Former Writers</em>_, London 1834, p. 165. See also the previous note.}…; sale, Sir Edward J. Dean Paul (†, Cambridge House, Twickenham), London (Christie’s), 27 June 1896, no. 93, ₤1,228.10, to the dealer M. Colnaghi;{According to the catalogue for the sale, Charles T.D. Crews, London (Christie’s), 1 June 1915, no. 49: ‘From the collection of Sir E.J. Dean Paul, Bart., 1896. Exhibited at the New Gallery winter exhibition 1907-08.’ According to _<em>The Times</em>_, 29 June 1896 (unpag.): ‘A very good example of A. van der Neer (…) was sold for 1,170 guineas (M. Colnaghi)’.} sale, Charles T.D. Crews (1839-1915, Portman Square, London), London (Christie’s), 1 June 1915, no. 49,{The painting is illustrated in the sale catalogue.} $ 5,510, to P. and D. Colnaghi;{_<em>The New York Times</em>_, 3 June 1915 (unpag.).}…; the dealer Frederik Muller, Amsterdam;{C. Hofstede de Groot, _<em>Beschreibendes und kritisches Verzeichnis der Werke der hervorragendsten holländischen Maler des XVII. Jahrhunderts</em>_, VII, Esslingen/Paris 1918, p. 487.}…; collection Michiel Onnes (1878-1972), Nijenrode Castle;{C. Hofstede de Groot, _<em>Beschreibendes und kritisches Verzeichnis der Werke der hervorragendsten holländischen Maler des XVII. Jahrhunderts</em>_, VII, Esslingen/Paris 1918, p. 487; Hofstede de Groot notes, RKD.}…; the dealer Jacques Goudstikker, November 1920;{_<em>Catalogue de la collection Goudstikker à Amsterdam. Exposée dans les locaux de la ‘Schilderkundig Genootschap Pulchri Studio’, Lange Voorhout 15, La Haye, Novembre 1920</em>_, dealer cat. Amsterdam (Kunsthandel J. Goudstikker) 1920, no. 78, as _<em>Paysage d’hiver avec canal gelé</em>_ (ill.). The wax seal of the Goudstikker firm is on the back of the frame.}…; collection H.E. ten Cate (d. 1955), Almelo, 1930;{Hofstede de Groot notes, RKD.}…; donated by Sir Henri W.A. Deterding (1866-1939), London, to the museum, with 17 other paintings, 1936; on loan to the Amsterdam Museum since 1975",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300444174",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "referred_to_by": [
+     {
+      "type": "LinguisticObject",
+      "content": "Deze herkomstzin is geformuleerd met een speciale focus op de periode 1933-45 en zou daarom nog onvolledig kunnen zijn. Er kan aanvullende herkomstinformatie in het museum aanwezig zijn.\nIndien het object een mogelijk niet-heldere of incomplete herkomst heeft voor de periode 1933-45, ontvangt het museum graag aanvullende informatie met betrekking tot de Tweede Wereldoorlog-periode.",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388256",
+        "type": "Language"
+       }
+      ]
+     },
+     {
+      "type": "LinguisticObject",
+      "content": "Please note that this provenance was formulated with a special focus on provenance research for the years 1933-45 and could therefore be incomplete. There may be more (mostly earlier) provenance information known in the museum.\nIn case this item has an uncertain or incomplete provenance for the years 1933-45, the Rijksmuseum welcomes information and assistance in the investigation and clarification of the provenance of all works during that era.",
+      "language": [
+       {
+        "id": "http://vocab.getty.edu/aat/300388277",
+        "type": "Language"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "Schenking van de heer H.W.A. Deterding, Londen",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300026687",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "signature, with monogram, left of bottom centre (AV and DN ligated): ‘AV DN’",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435414",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "breedte 63,5 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "2",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "drager: hoogte 55 cm x hoogte 100 cm",
+    "identified_by": [
+     {
+      "type": "Identifier",
+      "content": "1",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300456575",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435430",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "oil on canvas",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435429",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388277",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "id": "https://www.rijksmuseum.nl/collection/SK-A-3256/catalogue-entry",
+    "type": "LinguisticObject",
+    "part_of": [
+     {
+      "id": "https://www.rijksmuseum.nl/en/research/collection-catalogues/dutch-paintings-of-the-seventeenth-century-in-the-rijksmuseum",
+      "type": "LinguisticObject",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300417819",
+        "type": "Type"
+       }
+      ]
+     }
+    ],
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300027267",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "created_by": {
+     "type": "Creation",
+     "timespan": {
+      "type": "TimeSpan",
+      "identified_by": [
+       {
+        "type": "Name",
+        "content": "2022",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388256",
+          "type": "Language"
+         }
+        ]
+       },
+       {
+        "type": "Name",
+        "content": "2022",
+        "language": [
+         {
+          "id": "http://vocab.getty.edu/aat/300388277",
+          "type": "Language"
+         }
+        ]
+       }
+      ],
+      "begin_of_the_begin": "2022-01-01T00:00:00Z",
+      "end_of_the_end": "2022-12-31T23:59:59Z"
+     },
+     "part": [
+      {
+       "type": "AttributeAssignment",
+       "assigned_to": "https://id.rijksmuseum.nl/200107782",
+       "assigned": [
+        {
+         "type": "Name",
+         "content": "Winter Landscape near a Town with Bare Trees"
+        }
+       ],
+       "assigned_property": "identified_by"
+      }
+     ]
+    }
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "signatuur, met monogram, links van midden onder (AV en DN in ligatuur): ‘AV DN’ initialen in monogram",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435414",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   },
+   {
+    "type": "LinguisticObject",
+    "content": "olieverf op doek",
+    "classified_as": [
+     {
+      "id": "http://vocab.getty.edu/aat/300435429",
+      "type": "Type",
+      "classified_as": [
+       {
+        "id": "http://vocab.getty.edu/aat/300418049",
+        "type": "Type",
+        "_label": "brief text"
+       }
+      ]
+     }
+    ],
+    "language": [
+     {
+      "id": "http://vocab.getty.edu/aat/300388256",
+      "type": "Language"
+     }
+    ]
+   }
+  ],
+  "shows": [
+   {
+    "id": "https://id.rijksmuseum.nl/202107782",
+    "type": "VisualItem"
+   }
+  ]
+ }
+]

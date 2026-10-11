@@ -9,6 +9,7 @@ Les données viennent d'API ouvertes, sans clé, appelées directement depuis le
 | [Metropolitan Museum of Art](https://metmuseum.github.io/) | `met.js` | recherche → identifiants, puis 1 requête par œuvre |
 | [SMK, Danemark](https://api.smk.dk/api/v1/docs/) | `smk.js` | données en danois : titre français si disponible, techniques traduites |
 | [Minneapolis Institute of Art](https://github.com/artsmia/collection-search) | `mia.js` | moteur Elasticsearch ouvert (syntaxe Lucene), rapide ; images construites depuis l'identifiant |
+| [Rijksmuseum](https://data.rijksmuseum.nl/docs/search) | `rijksmuseum.js` | fiches « Linked Art » : 3 requêtes par œuvre (mises en cache), pagination par jetons, époques par siècle puis filtre exact ; techniques traduites du néerlandais |
 
 ## Lancer en local
 
@@ -59,7 +60,7 @@ Les musées rangent souvent les pastels parmi les dessins. Ici, toute œuvre don
 la technique mentionne « pastel » est classée **peinture** (`isPastel` dans
 `js/connectors/shared.js`). Le filtre « Peinture et pastel » va donc aussi
 chercher les pastels (catégorie « Pastels » au Met, « pastel » au SMK,
-dessins dont la technique contient « pastel » au Mia), et le filtre « Dessin » les exclut.
+dessins dont la technique contient « pastel » au Mia, matériau « pastel » au Rijksmuseum), et le filtre « Dessin » les exclut.
 
 ## Mon tableau (favoris)
 
@@ -141,7 +142,7 @@ en une minute environ.
 
 ## Si une API bloque un jour les requêtes du navigateur (CORS)
 
-Aujourd'hui, les trois API (Met, SMK, Mia) autorisent les appels directs
+Aujourd'hui, les quatre API (Met, SMK, Mia, Rijksmuseum) autorisent les appels directs
 (`Access-Control-Allow-Origin: *`) et aucun proxy n'est nécessaire. Si cela
 changeait, la solution gratuite serait un
 [Cloudflare Worker](https://developers.cloudflare.com/workers/) qui relaie les

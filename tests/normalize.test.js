@@ -36,7 +36,7 @@ test('tous les connecteurs renvoient exactement le format commun', () => {
   ];
   for (const art of cases) {
     assert.deepEqual(Object.keys(art).sort(), EXPECTED_KEYS);
-    assert.match(art.id, /^(met|smk|mia):\S/);
+    assert.match(art.id, /^(met|smk|mia|rijks):\S/);
     assert.ok(['peinture', 'dessin', 'autre'].includes(art.type));
     for (const key of ['thumbUrl', 'imageUrl', 'hdUrl', 'pageUrl']) {
       assert.match(art[key], /^https:\/\//, `${art.id}.${key} doit être une URL https`);
