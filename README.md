@@ -47,6 +47,14 @@ js/ui/                 grille, page détail, « Mon tableau », mode copie
 tests/                 tests de normalisation, sur de vraies réponses enregistrées
 ```
 
+## Pastels = peinture
+
+Les musées rangent souvent les pastels parmi les dessins. Ici, toute œuvre dont
+la technique mentionne « pastel » est classée **peinture** (`isPastel` dans
+`js/connectors/shared.js`). Le filtre « Peinture et pastel » va donc aussi
+chercher les pastels (catégorie « Pastels » au Met, « pastel » au SMK, dessins
+contenant « pastel » à l'AIC et à Cleveland), et le filtre « Dessin » les exclut.
+
 ## Mon tableau (favoris)
 
 Les favoris (statut à faire / en cours / terminé et notes) sont enregistrés

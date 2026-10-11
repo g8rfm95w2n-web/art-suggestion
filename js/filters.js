@@ -37,7 +37,7 @@ export const EPOQUES = {
 
 /** Supports : peinture ou dessin. */
 export const SUPPORTS = {
-  peinture: { label: 'Peinture' },
+  peinture: { label: 'Peinture et pastel' }, // les pastels comptent comme peinture
   dessin:   { label: 'Dessin' },
 };
 

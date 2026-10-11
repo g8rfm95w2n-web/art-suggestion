@@ -99,7 +99,9 @@ test('AIC : URL de recherche avec filtres', () => {
   assert.equal(url.searchParams.get('limit'), '6');
   const { bool } = JSON.parse(url.searchParams.get('params')).query;
   assert.deepEqual(bool.filter[0], { term: { is_public_domain: true } });
-  assert.deepEqual(bool.filter[2], { term: { artwork_type_id: 14 } });
+  // dessin = type 14, pastels exclus
+  assert.deepEqual(bool.filter[2].bool.filter, [{ term: { artwork_type_id: 14 } }]);
+  assert.deepEqual(bool.filter[2].bool.must_not, [{ match: { medium_display: 'pastel' } }]);
   assert.deepEqual(bool.filter[3], { range: { date_start: { gte: 1600, lte: 1749 } } });
   assert.match(bool.must[0].multi_match.query, /^seascape .*sea/);
 });

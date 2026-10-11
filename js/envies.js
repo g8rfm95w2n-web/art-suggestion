@@ -47,7 +47,7 @@ export const ENVIES = [
   { mots: ['interieur', 'maison', 'chambre', 'cuisine', 'salon'], effet: { theme: 'interieur' } },
   // Support
   { mots: ['dessin', 'dessiner', 'croquis', 'esquisse', 'crayon', 'fusain', 'sanguine', 'encre', 'trait', 'etude'], effet: { support: 'dessin' } },
-  { mots: ['peinture', 'peindre', 'huile', 'tableau', 'couleur', 'colore'], effet: { support: 'peinture' } },
+  { mots: ['peinture', 'peindre', 'huile', 'tableau', 'couleur', 'colore', 'pastel'], effet: { support: 'peinture' } },
   // Difficulté
   // Les tournures négatives sont des expressions entières : « pas trop dur » → débutant.
   { mots: ['simple', 'facile', 'debutant', 'rapide', 'minimaliste', 'epure', 'sobre',

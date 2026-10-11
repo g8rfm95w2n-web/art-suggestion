@@ -28,8 +28,20 @@ test('Cleveland : peinture normalisée', () => {
   assert.equal(art.pageUrl, 'https://clevelandart.org/art/1972.47');
 });
 
-test('Cleveland : dessin, et œuvres sous droits écartées', () => {
-  assert.equal(cma.normalize(cmaDrawing).type, 'dessin');
+test('Cleveland : un pastel classé « Drawing » devient une peinture', () => {
+  assert.equal(cmaDrawing.type, 'Drawing');
+  assert.equal(cmaDrawing.technique, 'pastel on gray wove paper');
+  assert.equal(cma.normalize(cmaDrawing).type, 'peinture');
+  assert.equal(cma.normalize({ ...cmaDrawing, technique: 'red chalk' }).type, 'dessin');
+});
+
+test('Cleveland : sous-recherche « pastel » = dessins contenant le mot pastel', () => {
+  const url = new URL(cma.buildSearchUrl({ ...cleanCriteria(), theme: 'portrait' }, 'pastel', 0, 2));
+  assert.equal(url.searchParams.get('type'), 'Drawing');
+  assert.equal(url.searchParams.get('q'), 'portrait pastel');
+});
+
+test('Cleveland : œuvres sous droits écartées', () => {
   assert.equal(cma.normalize({ ...cmaPainting, share_license_status: 'Copyrighted' }), null);
   assert.equal(cma.normalize({ ...cmaPainting, images: null }), null);
 });

@@ -14,7 +14,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor } from './shared.js';
+import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
 
 const API = 'https://collectionapi.metmuseum.org/public/collection';
 const MAX_RESULTS = 10000; // offset + limit ne peut pas dépasser 10 000
@@ -23,7 +23,8 @@ export const id = 'met';
 export const label = 'The Metropolitan Museum of Art';
 
 // Valeurs du filtre `medium` du Met (sensibles à la casse).
-const MEDIUMS = { peinture: 'Paintings', dessin: 'Drawings' };
+// Le Met a une catégorie à part pour les pastels, comptés ici comme peinture.
+const MEDIUMS = { peinture: 'Paintings', pastel: 'Pastels', dessin: 'Drawings' };
 
 /** URL de recherche pour UN support donné. Fonction pure → testable. */
 export function buildSearchUrl(criteria, medium, offset, limit) {
@@ -45,7 +46,7 @@ export function buildSearchUrl(criteria, medium, offset, limit) {
 
 function typeFromRaw(raw) {
   const text = `${raw.classification} ${raw.objectName}`.toLowerCase();
-  if (text.includes('painting')) return 'peinture';
+  if (text.includes('painting') || text.includes('pastel')) return 'peinture';
   if (text.includes('drawing')) return 'dessin';
   return 'autre';
 }
@@ -68,7 +69,7 @@ export function normalize(raw) {
     // objectBeginDate vaut 0 quand la date est inconnue
     year: raw.objectDate && Number.isFinite(raw.objectBeginDate) ? raw.objectBeginDate : null,
     medium: raw.medium || '',
-    type: typeFromRaw(raw),
+    type: withPastelRule(typeFromRaw(raw), raw.medium),
     thumbUrl: raw.primaryImageSmall,
     imageUrl: raw.primaryImageSmall,
     hdUrl: raw.primaryImage || raw.primaryImageSmall, // fichier original, parfois > 10 Mo
@@ -79,8 +80,8 @@ export function normalize(raw) {
 
 /** Recherche paginée → { total, items } */
 export function search(criteria, page, perPage) {
-  return searchBySupport(criteria, page, perPage, async (support, offset, limit) => {
-    const result = await fetchJson(buildSearchUrl(criteria, MEDIUMS[support], offset, limit));
+  return searchBySupport(criteria, page, perPage, async (kind, offset, limit) => {
+    const result = await fetchJson(buildSearchUrl(criteria, MEDIUMS[kind], offset, limit));
     // Une requête par œuvre (limitées et mises en cache par fetchJson).
     const objects = await Promise.all(
       (result?.objectIDs || []).map((oid) => fetchJson(`${API}/v1/objects/${oid}`)),
@@ -89,7 +90,7 @@ export function search(criteria, page, perPage) {
       .map(normalize)
       .filter(Boolean)
       // Fiche ambiguë (ex. aquarelle classée « Paintings ») : on sait par quel support on l'a trouvée.
-      .map((a) => (a.type === 'autre' ? { ...a, type: support } : a));
+      .map((a) => (a.type === 'autre' ? { ...a, type: kind === 'dessin' ? 'dessin' : 'peinture' } : a));
     return { total: result?.total || 0, items };
   }, MAX_RESULTS);
 }

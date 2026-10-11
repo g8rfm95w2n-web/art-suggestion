@@ -13,14 +13,15 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor } from './shared.js';
+import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
 
 const API = 'https://api.smk.dk/api/v1';
 
 export const id = 'smk';
 export const label = 'SMK – Galerie nationale du Danemark';
 
-const OBJECT_NAMES = { peinture: 'maleri', dessin: 'tegning' };
+// Le SMK a une catégorie « pastel », comptée ici comme peinture.
+const OBJECT_NAMES = { peinture: 'maleri', pastel: 'pastel', dessin: 'tegning' };
 // Champs demandés (réponse plus légère). Attention : « frontend_url » est
 // calculé par l'API et provoque une erreur 500 si on le demande ici.
 const FIELDS = [
@@ -28,9 +29,9 @@ const FIELDS = [
   'object_names', 'image_thumbnail', 'image_native', 'public_domain', 'content_subject',
 ].join(',');
 
-/** URL de recherche pour UN support. Fonction pure → testable. */
-export function buildSearchUrl(criteria, support, offset, limit) {
-  const filters = ['[public_domain:true]', '[has_image:true]', `[object_names:${OBJECT_NAMES[support]}]`];
+/** URL de recherche pour UNE sorte d'œuvre (peinture, pastel, dessin). Pure → testable. */
+export function buildSearchUrl(criteria, kind, offset, limit) {
+  const filters = ['[public_domain:true]', '[has_image:true]', `[object_names:${OBJECT_NAMES[kind]}]`];
   const qs = new URLSearchParams({
     keys: keywordsFor(criteria, THEMES) || '*',
     filters: filters.join(','),
@@ -103,7 +104,7 @@ function artistName(production = []) {
 
 function typeFromRaw(raw) {
   const name = (raw.object_names?.[0]?.name || '').toLowerCase();
-  if (name === 'maleri') return 'peinture';
+  if (name === 'maleri' || name === 'pastel') return 'peinture';
   if (name === 'tegning' || name === 'akvarel') return 'dessin';
   return 'autre';
 }
@@ -131,7 +132,7 @@ export function normalize(raw) {
     date: date?.period || '',
     year: Number.isFinite(year) ? year : null,
     medium: translateTechnique(raw.techniques?.[0]),
-    type: typeFromRaw(raw),
+    type: withPastelRule(typeFromRaw(raw), raw.techniques?.[0]),
     thumbUrl: smaller(raw.image_thumbnail),
     imageUrl: raw.image_thumbnail, // ~1024 px
     hdUrl: raw.image_native || raw.image_thumbnail,
@@ -142,8 +143,8 @@ export function normalize(raw) {
 
 /** Recherche paginée → { total, items } */
 export function search(criteria, page, perPage) {
-  return searchBySupport(criteria, page, perPage, async (support, offset, limit) => {
-    const data = await fetchJson(buildSearchUrl(criteria, support, offset, limit));
+  return searchBySupport(criteria, page, perPage, async (kind, offset, limit) => {
+    const data = await fetchJson(buildSearchUrl(criteria, kind, offset, limit));
     // Sans résultat, l'API répond parfois « false » au lieu d'une liste vide.
     if (!data || typeof data !== 'object') return { total: 0, items: [] };
     return { total: data.found || 0, items: (data.items || []).map(normalize).filter(Boolean) };

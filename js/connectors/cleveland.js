@@ -14,7 +14,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
-import { searchBySupport, keywordsFor } from './shared.js';
+import { searchBySupport, keywordsFor, withPastelRule } from './shared.js';
 
 const API = 'https://openaccess-api.clevelandart.org/api/artworks';
 
@@ -22,22 +22,29 @@ export const id = 'cma';
 export const label = 'Cleveland Museum of Art';
 
 const TYPES = { peinture: 'Painting', dessin: 'Drawing' };
+// Les pastels sont rangés parmi les dessins : on les cherche avec le mot « pastel ».
+const KIND_QUERY = {
+  peinture: { type: 'Painting', extra: '' },
+  pastel: { type: 'Drawing', extra: 'pastel' },
+  dessin: { type: 'Drawing', extra: '' },
+};
 const FIELDS = [
   'id', 'accession_number', 'title', 'creators', 'culture', 'creation_date',
   'creation_date_earliest', 'technique', 'type', 'images', 'url', 'share_license_status',
 ].join(',');
 
-/** URL de recherche pour UN support. Fonction pure → testable. */
-export function buildSearchUrl(criteria, support, offset, limit) {
+/** URL de recherche pour UNE sorte d'œuvre (peinture, pastel, dessin). Pure → testable. */
+export function buildSearchUrl(criteria, kind, offset, limit) {
+  const { type, extra } = KIND_QUERY[kind];
   const qs = new URLSearchParams({
     cc0: '1',
     has_image: '1',
-    type: TYPES[support],
+    type,
     skip: String(offset),
     limit: String(limit),
     fields: FIELDS,
   });
-  const q = keywordsFor(criteria, THEMES); // plusieurs mots = tous requis
+  const q = keywordsFor(criteria, THEMES, extra); // plusieurs mots = tous requis
   if (q) qs.set('q', q);
   if (criteria.epoque) {
     const [from, to] = EPOQUES[criteria.epoque].range;
@@ -75,7 +82,7 @@ export function normalize(raw) {
     date: raw.creation_date || '',
     year: Number.isFinite(raw.creation_date_earliest) ? raw.creation_date_earliest : null,
     medium: raw.technique || '',
-    type: typeFromRaw(raw),
+    type: withPastelRule(typeFromRaw(raw), raw.technique),
     thumbUrl: web,   // ~900 px
     imageUrl: web,
     hdUrl: raw.images.print?.url || web, // ~3400 px, quelques Mo
@@ -86,8 +93,8 @@ export function normalize(raw) {
 
 /** Recherche paginée → { total, items } */
 export function search(criteria, page, perPage) {
-  return searchBySupport(criteria, page, perPage, async (support, offset, limit) => {
-    const data = await fetchJson(buildSearchUrl(criteria, support, offset, limit));
+  return searchBySupport(criteria, page, perPage, async (kind, offset, limit) => {
+    const data = await fetchJson(buildSearchUrl(criteria, kind, offset, limit));
     return { total: data.info.total, items: data.data.map(normalize).filter(Boolean) };
   });
 }

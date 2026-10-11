@@ -11,6 +11,7 @@
 
 import { fetchJson } from '../net.js';
 import { THEMES, EPOQUES } from '../filters.js';
+import { withPastelRule } from './shared.js';
 
 const API = 'https://api.artic.edu/api/v1';
 const IIIF = 'https://www.artic.edu/iiif/2';
@@ -21,6 +22,23 @@ export const label = 'Art Institute of Chicago';
 
 // Identifiants internes de l'AIC (cf. /api/v1/artwork-types).
 const TYPE_IDS = { peinture: 1, dessin: 14 }; // 14 = « Drawing and Watercolor »
+
+// Les pastels sont classés « Drawing and Watercolor » ; on les compte comme peinture.
+const PASTEL = { match: { medium_display: 'pastel' } };
+const SUPPORT_FILTERS = {
+  // peinture = type « Painting » OU (type dessin ET technique « pastel »)
+  peinture: {
+    bool: {
+      should: [
+        { term: { artwork_type_id: TYPE_IDS.peinture } },
+        { bool: { filter: [{ term: { artwork_type_id: TYPE_IDS.dessin } }, PASTEL] } },
+      ],
+      minimum_should_match: 1,
+    },
+  },
+  // dessin = type dessin SAUF pastels
+  dessin: { bool: { filter: [{ term: { artwork_type_id: TYPE_IDS.dessin } }], must_not: [PASTEL] } },
+};
 
 const FIELDS = [
   'id', 'title', 'artist_title', 'artist_display', 'date_display', 'date_start',
@@ -39,7 +57,7 @@ export function buildSearchUrl(criteria, page, perPage) {
     { term: { is_public_domain: true } },
     { exists: { field: 'image_id' } },
     criteria.support
-      ? { term: { artwork_type_id: TYPE_IDS[criteria.support] } }
+      ? SUPPORT_FILTERS[criteria.support]
       : { terms: { artwork_type_id: Object.values(TYPE_IDS) } },
   ];
   if (criteria.epoque) {
@@ -115,7 +133,7 @@ export function normalize(raw, iiifUrl = IIIF) {
     date: raw.date_display || '',
     year: Number.isFinite(raw.date_start) ? raw.date_start : null,
     medium: raw.medium_display || '',
-    type: typeFromId(raw.artwork_type_id),
+    type: withPastelRule(typeFromId(raw.artwork_type_id), raw.medium_display),
     thumbUrl: image(400),
     imageUrl: image(843),
     hdUrl: image(1686),
