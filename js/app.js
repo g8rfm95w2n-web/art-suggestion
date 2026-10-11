@@ -2,8 +2,8 @@
 //
 // Navigation par « hash » (la partie de l'URL après #) :
 //   #/?theme=paysage&support=dessin        → grille de résultats filtrés
-//   #/oeuvre/aic:27992?theme=paysage       → détail d'une œuvre
-//   #/copie/aic:27992                      → mode copie (grille, gris, zoom)
+//   #/oeuvre/met:436535?theme=paysage      → détail d'une œuvre
+//   #/copie/met:436535                     → mode copie (grille, gris, zoom)
 //   #/tableau?statut=en-cours              → mon tableau d'inspiration
 //   #/?theme=marine&motcle=calm&envie=…    → résultats d'une recherche par envie
 // Avantages : aucun serveur nécessaire (GitHub Pages ne sert que des fichiers),

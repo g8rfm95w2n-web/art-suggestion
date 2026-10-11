@@ -7,7 +7,6 @@ Les données viennent d'API ouvertes, sans clé, appelées directement depuis le
 | Source | Connecteur | Particularités |
 |---|---|---|
 | [Metropolitan Museum of Art](https://metmuseum.github.io/) | `met.js` | recherche → identifiants, puis 1 requête par œuvre |
-| [Art Institute of Chicago](https://api.artic.edu/docs/) | `aic.js` | requête Elasticsearch, images IIIF |
 | [SMK, Danemark](https://api.smk.dk/api/v1/docs/) | `smk.js` | données en danois : titre français si disponible, techniques traduites |
 
 ## Lancer en local
@@ -58,8 +57,7 @@ pas ralentir chaque « Voir plus ».
 Les musées rangent souvent les pastels parmi les dessins. Ici, toute œuvre dont
 la technique mentionne « pastel » est classée **peinture** (`isPastel` dans
 `js/connectors/shared.js`). Le filtre « Peinture et pastel » va donc aussi
-chercher les pastels (catégorie « Pastels » au Met, « pastel » au SMK, dessins
-contenant « pastel » à l'AIC), et le filtre « Dessin » les exclut.
+chercher les pastels (catégorie « Pastels » au Met, « pastel » au SMK), et le filtre « Dessin » les exclut.
 
 ## Mon tableau (favoris)
 

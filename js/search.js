@@ -1,6 +1,6 @@
 // Orchestration : interroge toutes les sources et fusionne leurs résultats.
 // Ce module ne connaît que l'interface commune des connecteurs : il ne sait
-// rien de l'AIC ni du Met.
+// rien des musées eux-mêmes.
 
 import { connectors, getConnector } from './connectors/index.js';
 import { SUPPORTS } from './filters.js';
@@ -49,7 +49,7 @@ export async function searchAll(criteria, page, onPart = () => {}) {
   return summary;
 }
 
-/** Une œuvre par son identifiant complet, ex. « aic:27992 ». */
+/** Une œuvre par son identifiant complet, ex. « met:436535 ». */
 export async function getArtwork(fullId) {
   const [sourceId, localId] = fullId.split(':');
   const connector = getConnector(sourceId);

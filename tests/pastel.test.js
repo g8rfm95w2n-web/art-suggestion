@@ -5,7 +5,6 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 import { isPastel, searchBySupport } from '../js/connectors/shared.js';
-import * as aic from '../js/connectors/aic.js';
 import * as met from '../js/connectors/met.js';
 import * as smk from '../js/connectors/smk.js';
 import { cleanCriteria } from '../js/filters.js';
@@ -23,8 +22,6 @@ test('isPastel reconnaît le pastel en anglais et en danois', () => {
 });
 
 test('chaque connecteur classe un pastel en peinture', () => {
-  const [, aicDrawing] = fixture('aic-artworks.json').data;
-  assert.equal(aic.normalize({ ...aicDrawing, medium_display: 'Pastel on paper' }).type, 'peinture');
   const metDrawing = fixture('met-drawing.json');
   assert.equal(met.normalize({ ...metDrawing, medium: 'Pastel on blue paper' }).type, 'peinture');
   assert.equal(met.normalize({ ...metDrawing, classification: 'Pastels', medium: 'Chalk' }).type, 'peinture');

@@ -4,22 +4,17 @@
 // Les connecteurs lisent ces tables pour construire leurs requêtes.
 // Pour ajouter un thème : une ligne ici, rien d'autre à toucher.
 
-/**
- * Thèmes : clé → libellé affiché + termes de recherche (anglais).
- *  - query    : terme principal, envoyé tel quel (le Met cherche l'expression exacte) ;
- *  - synonyms : mots supplémentaires, utilisés par les sources qui savent
- *               chercher « l'un OU l'autre de ces mots » (AIC).
- */
+/** Thèmes : clé → libellé affiché + mot-clé de recherche (anglais). */
 export const THEMES = {
-  paysage:        { label: 'Paysage',           query: 'landscape',  synonyms: 'landscapes countryside' },
-  portrait:       { label: 'Portrait',          query: 'portrait',   synonyms: 'portraits' },
-  'nature-morte': { label: 'Nature morte',      query: 'still life', synonyms: 'still-life' },
-  marine:         { label: 'Marine',            query: 'seascape',   synonyms: 'sea ocean coast harbor boats marine' },
-  animaux:        { label: 'Animaux',           query: 'animals',    synonyms: 'animal horses dogs cats birds' },
-  fleurs:         { label: 'Fleurs',            query: 'flowers',    synonyms: 'flower bouquet' },
-  ville:          { label: 'Ville',             query: 'city',       synonyms: 'cityscape cityscapes street urban' },
-  interieur:      { label: 'Scène d’intérieur', query: 'interior',   synonyms: 'interiors domestic' },
-  arbres:         { label: 'Arbres',            query: 'trees',      synonyms: 'tree forest woods' },
+  paysage:        { label: 'Paysage',           query: 'landscape' },
+  portrait:       { label: 'Portrait',          query: 'portrait' },
+  'nature-morte': { label: 'Nature morte',      query: 'still life' },
+  marine:         { label: 'Marine',            query: 'seascape' },
+  animaux:        { label: 'Animaux',           query: 'animals' },
+  fleurs:         { label: 'Fleurs',            query: 'flowers' },
+  ville:          { label: 'Ville',             query: 'city' },
+  interieur:      { label: 'Scène d’intérieur', query: 'interior' },
+  arbres:         { label: 'Arbres',            query: 'trees' },
 };
 
 /**
