@@ -16,10 +16,9 @@
 
 import * as aic from './aic.js';
 import * as met from './met.js';
-import * as cleveland from './cleveland.js';
 import * as smk from './smk.js';
 
-export const connectors = [aic, met, cleveland, smk];
+export const connectors = [aic, met, smk];
 
 export function getConnector(sourceId) {
   return connectors.find((c) => c.id === sourceId);

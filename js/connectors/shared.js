@@ -33,9 +33,9 @@ function keepFor(kind, art) {
 }
 
 /**
- * Pour les API qui ne savent chercher qu'UN type d'œuvre à la fois (Met,
- * Cleveland, SMK) : une recherche par « sorte » d'œuvre (peinture, pastel,
- * dessin), puis on mélange les résultats.
+ * Pour les API qui ne savent chercher qu'UN type d'œuvre à la fois (Met, SMK) :
+ * une recherche par « sorte » d'œuvre (peinture, pastel, dessin), puis on
+ * mélange les résultats.
  *
  * @param {(kind: 'peinture'|'pastel'|'dessin', offset: number, limit: number) => Promise<{total, items}>} fetchOne
  */

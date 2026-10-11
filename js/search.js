@@ -4,38 +4,49 @@
 
 import { connectors, getConnector } from './connectors/index.js';
 import { SUPPORTS } from './filters.js';
-import { interleave, pick, randomInt } from './utils.js';
+import { pick, randomInt } from './utils.js';
 
 export const PER_PAGE = 12; // œuvres par page, toutes sources confondues
 
-/**
- * Recherche dans toutes les sources en parallèle.
- * Si une source tombe en panne, on affiche quand même les autres
- * (Promise.allSettled ne s'arrête pas à la première erreur, contrairement à Promise.all).
- * @returns {Promise<{items, total, hasMore, errors: string[]}>}
- */
-export async function searchAll(criteria, page) {
-  const perSource = Math.ceil(PER_PAGE / connectors.length);
-  const settled = await Promise.allSettled(
-    connectors.map((c) => c.search(criteria, page, perSource)),
-  );
+// Une source qui vient d'échouer est mise de côté quelques minutes : inutile
+// de lui laisser 12 s de délai à chaque page si elle est en panne.
+const PAUSE_AFTER_ERROR = 5 * 60 * 1000;
+const pausedUntil = new Map(); // id de la source → date de reprise
 
-  const lists = [];
-  const errors = [];
-  let total = 0;
-  let hasMore = false;
-  settled.forEach((result, i) => {
-    if (result.status === 'fulfilled') {
-      lists.push(result.value.items);
-      total += result.value.total;
-      if ((page + 1) * perSource < result.value.total) hasMore = true;
+/**
+ * Recherche dans toutes les sources en parallèle, avec affichage progressif :
+ * `onPart` est appelée dès qu'UNE source répond, sans attendre les autres.
+ * Un musée lent ou en panne ne retarde donc plus l'affichage des autres.
+ *
+ * @param {(part: {items, total, hasMore, error: string|null}) => void} [onPart]
+ * @returns {Promise<{items, total, hasMore, errors: string[]}>} le bilan, une fois toutes les sources terminées
+ */
+export async function searchAll(criteria, page, onPart = () => {}) {
+  const perSource = Math.ceil(PER_PAGE / connectors.length);
+  const summary = { items: [], total: 0, hasMore: false, errors: [] };
+
+  await Promise.all(connectors.map(async (connector) => {
+    let part;
+    if (pausedUntil.get(connector.id) > Date.now()) {
+      part = { items: [], total: 0, hasMore: false, error: connector.label };
     } else {
-      console.warn(connectors[i].id, result.reason);
-      errors.push(connectors[i].label);
+      try {
+        const r = await connector.search(criteria, page, perSource);
+        part = { items: r.items, total: r.total, hasMore: (page + 1) * perSource < r.total, error: null };
+      } catch (err) {
+        // Source en panne : on le signale, les autres continuent.
+        console.warn(connector.id, err);
+        pausedUntil.set(connector.id, Date.now() + PAUSE_AFTER_ERROR);
+        part = { items: [], total: 0, hasMore: false, error: connector.label };
+      }
     }
-  });
-  // On alterne les sources pour mélanger les musées dans la grille.
-  return { items: interleave(lists), total, hasMore, errors };
+    summary.items.push(...part.items);
+    summary.total += part.total;
+    summary.hasMore ||= part.hasMore;
+    if (part.error) summary.errors.push(part.error);
+    onPart(part);
+  }));
+  return summary;
 }
 
 /** Une œuvre par son identifiant complet, ex. « aic:27992 ». */

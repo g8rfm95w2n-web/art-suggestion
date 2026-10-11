@@ -34,7 +34,9 @@ const envieInput = document.getElementById('envie-text');
 const APP_TITLE = document.title;
 
 // Mémoire de la recherche en cours : revenir du détail ne relance rien.
-const results = { key: null, criteria: null, page: 0, items: [], total: 0, hasMore: false, errors: [], scrollY: 0 };
+const results = {
+  key: null, criteria: null, page: 0, items: [], total: 0, hasMore: false, errors: [], scrollY: 0, loading: false,
+};
 const known = new Map(); // id → œuvre déjà chargée (évite de la redemander)
 let difficulty = ''; // filtre de difficulté courant
 let lastGridHash = '#/'; // dernière recherche affichée, pour le bouton « ← Résultats »
@@ -134,21 +136,44 @@ function setSection(name) { // 'search' | 'detail' | 'board'
 const message = (text, cls = 'notice') => `<p class="${cls}">${text}</p>`;
 const LOADING = message('Recherche en cours…', 'notice loading');
 
-function renderGrid() {
-  const { items, hasMore, errors } = results;
-  const parts = [envieBanner()];
-  if (errors.length) parts.push(message(`${errors.join(', ')} ne répond pas pour le moment.`, 'notice warn'));
-  if (!items.length) parts.push(message('Aucune œuvre trouvée. Essaie d’élargir les filtres.'));
-  else parts.push('<p class="count"></p>');
-  parts.push('<div class="grid"></div>');
-  if (hasMore) parts.push('<button type="button" class="btn more" id="more">Voir plus</button>');
-  view.innerHTML = parts.join('');
+// La grille se remplit progressivement : chaque musée ajoute ses œuvres dès
+// qu'il répond. L'état est dans `results` ; l'affichage est recalculé à partir
+// de lui (renderGrid pour tout, updateGridStatus pour le bas de page).
 
+/** Dessine la grille complète à partir de l'état `results`. */
+function renderGrid() {
+  view.innerHTML = `
+    ${envieBanner()}
+    <div class="grid-errors"></div>
+    <p class="count"></p>
+    <div class="grid"></div>
+    <div class="grid-footer"></div>`;
   const grid = view.querySelector('.grid');
-  appendCards(grid, items);
+  appendCards(grid, results.items);
+  updateGridStatus();
+  showLevels(grid, results.items, updateCount);
+}
+
+/** Met à jour les messages d'erreur, le compteur et le bas de grille. */
+function updateGridStatus() {
+  const errors = view.querySelector('.grid-errors');
+  const footer = view.querySelector('.grid-footer');
+  if (!errors || !footer) return; // la grille n'est pas affichée
+
+  errors.innerHTML = results.errors.length
+    ? message(`${[...new Set(results.errors)].join(', ')} ne répond pas pour le moment.`, 'notice warn')
+    : '';
+  if (results.loading) {
+    footer.innerHTML = message('Recherche en cours…', 'notice loading');
+  } else if (!results.items.length) {
+    footer.innerHTML = message('Aucune œuvre trouvée. Essaie d’élargir les filtres.');
+  } else if (results.hasMore) {
+    footer.innerHTML = '<button type="button" class="btn more">Voir plus</button>';
+    footer.querySelector('.more').addEventListener('click', () => runPage(results.page + 1));
+  } else {
+    footer.innerHTML = '';
+  }
   updateCount();
-  view.querySelector('#more')?.addEventListener('click', () => loadMore());
-  analyzeAndFill(items);
 }
 
 const EFFECT_LABELS = {
@@ -183,31 +208,64 @@ function envieBanner() {
 
 function updateCount() {
   const el = view.querySelector('.count');
-  if (!el) return;
-  const total = `Environ ${results.total.toLocaleString('fr-FR')} œuvres`;
   const grid = view.querySelector('.grid');
+  if (!el || !grid) return;
   const visible = applyLevelFilter(grid, difficulty);
+  el.hidden = !results.items.length;
+  const total = `Environ ${results.total.toLocaleString('fr-FR')} œuvres`;
   if (!difficulty) { el.textContent = total; return; }
   const pending = grid.querySelectorAll('.card:not([data-level])').length;
   el.textContent = `${total} · ${visible} affichée${visible > 1 ? 's' : ''} au niveau « ${LEVELS[difficulty]} »`
     + (pending ? ` (analyse de ${pending} image${pending > 1 ? 's' : ''}…)` : '');
 }
 
-/** Analyse les vignettes ; si trop peu correspondent au filtre, charge la page suivante. */
-async function analyzeAndFill(items, autoPages = 0) {
-  const grid = view.querySelector('.grid');
+/**
+ * Charge une page de résultats, musée par musée.
+ * `autoPages` compte les pages chargées automatiquement pour le filtre de difficulté.
+ */
+async function runPage(page, autoPages = 0) {
   const key = results.key;
-  await showLevels(grid, items, updateCount);
-  if (!difficulty) return;
-  if (key !== results.key || !grid.isConnected) return;
-  updateCount();
+  results.loading = true;
+  results.hasMore = false; // recalculé d'après les réponses de cette page
+  updateGridStatus();
+
+  const analyses = [];
+  await searchAll(results.criteria, page, (part) => {
+    if (key !== results.key) return; // l'utilisateur a lancé une autre recherche
+    results.items.push(...part.items);
+    if (page === 0) results.total += part.total; // le total ne change pas d'une page à l'autre
+    results.hasMore ||= part.hasMore;
+    if (part.error) results.errors.push(part.error);
+    part.items.forEach((a) => known.set(a.id, a));
+    // La grille peut être absente (on regarde une œuvre) : les œuvres sont
+    // gardées dans `results` et s'afficheront au retour.
+    const grid = view.querySelector('.grid');
+    if (grid) {
+      appendCards(grid, part.items);
+      analyses.push(showLevels(grid, part.items, updateCount));
+    }
+    updateGridStatus();
+  });
+  if (key !== results.key) return;
+
+  results.page = page;
+  results.loading = false;
+  updateGridStatus();
+  await Promise.all(analyses);
+  if (key === results.key) autoFill(autoPages);
+}
+
+/** Filtre de difficulté : si trop peu d'œuvres correspondent, charge la page suivante. */
+function autoFill(autoPages = 0) {
+  const grid = view.querySelector('.grid');
+  if (!difficulty || !grid || results.loading) return;
   const visible = grid.querySelectorAll('.card:not([hidden])').length;
   if (visible < MIN_VISIBLE && results.hasMore && autoPages < MAX_AUTO_PAGES) {
-    await loadMore(autoPages + 1);
+    runPage(results.page + 1, autoPages + 1);
   }
 }
 
-async function showGrid(criteria, token) {
+function showGrid(criteria) {
   setSection('search');
   document.title = APP_TITLE;
   const key = JSON.stringify(criteria);
@@ -218,36 +276,11 @@ async function showGrid(criteria, token) {
     return;
   }
 
-  view.innerHTML = LOADING;
-  const r = await searchAll(criteria, 0);
-  if (token !== navToken) return;
-  Object.assign(results, { key, criteria, page: 0, scrollY: 0, ...r });
-  r.items.forEach((a) => known.set(a.id, a));
+  Object.assign(results, {
+    key, criteria, page: 0, scrollY: 0, items: [], total: 0, hasMore: false, errors: [], loading: true,
+  });
   renderGrid();
-}
-
-async function loadMore(autoPages = 0) {
-  const button = view.querySelector('#more');
-  if (!button || button.disabled) return;
-  button.disabled = true;
-  button.textContent = 'Chargement…';
-  const key = results.key;
-  const r = await searchAll(results.criteria, results.page + 1);
-  if (key !== results.key || !button.isConnected) return; // on a changé de page entre-temps
-
-  results.page += 1;
-  results.items.push(...r.items);
-  results.hasMore = r.hasMore;
-  r.items.forEach((a) => known.set(a.id, a));
-  appendCards(view.querySelector('.grid'), r.items);
-  if (r.hasMore) {
-    button.disabled = false;
-    button.textContent = 'Voir plus';
-  } else {
-    button.remove();
-  }
-  updateCount();
-  await analyzeAndFill(r.items, autoPages);
+  runPage(0);
 }
 
 // ---------------------------------------------------------------- Détail et tableau
@@ -348,9 +381,9 @@ function route() {
   } else if (levelChanged && results.key === JSON.stringify(criteria) && view.querySelector('.grid')) {
     // Seule la difficulté a changé : on filtre sans relancer de recherche.
     updateCount();
-    analyzeAndFill([]);
+    autoFill();
   } else {
-    showGrid(criteria, token);
+    showGrid(criteria);
   }
 }
 

@@ -11,7 +11,6 @@ import { readFileSync } from 'node:fs';
 
 import * as aic from '../js/connectors/aic.js';
 import * as met from '../js/connectors/met.js';
-import * as cma from '../js/connectors/cleveland.js';
 import * as smk from '../js/connectors/smk.js';
 import { cleanCriteria } from '../js/filters.js';
 import { interleave } from '../js/utils.js';
@@ -35,12 +34,11 @@ test('tous les connecteurs renvoient exactement le format commun', () => {
   const cases = [
     aic.normalize(aicPainting), aic.normalize(aicDrawing),
     met.normalize(metPainting), met.normalize(metDrawing),
-    ...fixture('cma-artworks.json').map(cma.normalize),
     ...fixture('smk-artworks.json').map(smk.normalize),
   ];
   for (const art of cases) {
     assert.deepEqual(Object.keys(art).sort(), EXPECTED_KEYS);
-    assert.match(art.id, /^(aic|met|cma|smk):\S/);
+    assert.match(art.id, /^(aic|met|smk):\S/);
     assert.ok(['peinture', 'dessin', 'autre'].includes(art.type));
     for (const key of ['thumbUrl', 'imageUrl', 'hdUrl', 'pageUrl']) {
       assert.match(art[key], /^https:\/\//, `${art.id}.${key} doit être une URL https`);

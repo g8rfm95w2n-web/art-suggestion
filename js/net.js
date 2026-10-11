@@ -41,18 +41,20 @@ export class HttpError extends Error {
 
 /**
  * fetch() avec un second essai en cas d'échec réseau ou CORS (TypeError).
- * Cas réel : certains serveurs (Cleveland) mémorisent la première réponse
+ * Cas réel : certains serveurs mémorisent la première réponse
  * faite à une URL, en-têtes compris ; si ce premier appel venait d'un outil
  * sans navigateur, la réponse mémorisée n'a pas l'autorisation CORS et le
  * navigateur la refuse ensuite. Un paramètre en plus (_r=…) donne une URL
- * neuve, donc une réponse correcte. Pas de second essai après un délai
- * dépassé : le serveur est simplement lent ou injoignable.
+ * neuve, donc une réponse correcte. Ce refus est immédiat : on ne réessaie
+ * que si l'échec a été rapide. Un échec lent signifie un serveur lent ou
+ * injoignable, et réessayer doublerait l'attente.
  */
 async function fetchWithRetry(url) {
+  const start = Date.now();
   try {
     return await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) });
   } catch (err) {
-    if (err.name !== 'TypeError') throw err;
+    if (err.name !== 'TypeError' || Date.now() - start > 2000) throw err;
     const retryUrl = `${url}${url.includes('?') ? '&' : '?'}_r=${Date.now()}`;
     return fetch(retryUrl, { signal: AbortSignal.timeout(TIMEOUT_MS) });
   }
