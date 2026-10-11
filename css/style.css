@@ -69,7 +69,9 @@ a { color: inherit; }
   align-items: end;
   padding: 8px var(--gap) 16px;
 }
-.filters label { display: grid; gap: 4px; font-size: .85rem; color: var(--muted); }
+.filters label { display: grid; gap: 4px; font-size: .85rem; color: var(--muted); min-width: 0; }
+/* Sans ça, une liste prend la largeur de sa plus longue option et déborde sur sa voisine. */
+.filters select { width: 100%; min-width: 0; text-overflow: ellipsis; }
 
 select, .btn {
   min-height: 44px;
