@@ -3,6 +3,7 @@
 import { esc } from '../utils.js';
 import { analyze, LEVELS } from '../analysis.js';
 import { getFavorite } from '../favorites.js';
+import { canAnalyze } from '../connectors/index.js';
 
 /** HTML d'une vignette. */
 function cardHtml(art) {
@@ -42,7 +43,7 @@ export function appendCards(grid, items) {
  */
 export function showLevels(grid, items, onEach) {
   return Promise.all(items.map(async (art) => {
-    const result = await analyze(art);
+    const result = canAnalyze(art) ? await analyze(art) : null;
     const card = grid.querySelector(`.card[data-id="${CSS.escape(art.id)}"]`);
     if (!card) return;
     card.dataset.level = result ? result.level : 'inconnu';

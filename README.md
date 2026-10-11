@@ -9,6 +9,7 @@ Les données viennent d'API ouvertes, sans clé, appelées directement depuis le
 | [Metropolitan Museum of Art](https://metmuseum.github.io/) | `met.js` | recherche → identifiants, puis 1 requête par œuvre |
 | [SMK, Danemark](https://api.smk.dk/api/v1/docs/) | `smk.js` | données en danois : titre français si disponible, techniques traduites |
 | [Minneapolis Institute of Art](https://github.com/artsmia/collection-search) | `mia.js` | moteur Elasticsearch ouvert (syntaxe Lucene), rapide ; images construites depuis l'identifiant |
+| [Cleveland Museum of Art](https://openaccess-api.clevelandart.org/) | `cleveland.js` | images sans CORS : **pas de palette ni de difficulté** (`imagesAnalysable = false`) |
 | [Rijksmuseum](https://data.rijksmuseum.nl/docs/search) | `rijksmuseum.js` | fiches « Linked Art » : 3 requêtes par œuvre (mises en cache), pagination par jetons, époques par siècle puis filtre exact ; techniques traduites du néerlandais |
 
 ## Lancer en local
@@ -148,7 +149,7 @@ en une minute environ.
 
 ## Si une API bloque un jour les requêtes du navigateur (CORS)
 
-Aujourd'hui, les quatre API (Met, SMK, Mia, Rijksmuseum) autorisent les appels directs
+Aujourd'hui, les cinq API (Met, SMK, Mia, Rijksmuseum, Cleveland) autorisent les appels directs
 (`Access-Control-Allow-Origin: *`) et aucun proxy n'est nécessaire. Si cela
 changeait, la solution gratuite serait un
 [Cloudflare Worker](https://developers.cloudflare.com/workers/) qui relaie les

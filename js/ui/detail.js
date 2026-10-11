@@ -4,6 +4,7 @@
 import { esc } from '../utils.js';
 import { analyze, LEVELS } from '../analysis.js';
 import { STATUSES, getFavorite, addFavorite, removeFavorite, updateFavorite } from '../favorites.js';
+import { canAnalyze } from '../connectors/index.js';
 
 const TYPE_LABELS = { peinture: 'Peinture', dessin: 'Dessin', autre: '—' };
 
@@ -62,10 +63,15 @@ export function renderDetail(container, art, { backHref, backLabel, copyHref, on
   }, { once: true });
 
   renderFavoriteBox(container.querySelector('.fav-box'), art);
-  analyze(art).then((result) => {
-    const box = container.querySelector('.analysis');
-    if (box) renderAnalysis(box, result); // la page a pu changer entre-temps
-  });
+  if (!canAnalyze(art)) {
+    container.querySelector('.analysis').innerHTML =
+      `<p class="muted">${esc(art.sourceLabel)} ne permet pas l’analyse de ses images : palette et difficulté indisponibles pour cette œuvre.</p>`;
+  } else {
+    analyze(art).then((result) => {
+      const box = container.querySelector('.analysis');
+      if (box) renderAnalysis(box, result); // la page a pu changer entre-temps
+    });
+  }
 }
 
 // ---------------------------------------------------------------- Tableau d'inspiration

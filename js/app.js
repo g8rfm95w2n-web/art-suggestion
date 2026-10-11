@@ -22,6 +22,7 @@ import { esc } from './utils.js';
 import { analyze, LEVELS } from './analysis.js';
 import { STATUSES, getFavorite, listFavorites } from './favorites.js';
 import { appendCards, showLevels, applyLevelFilter } from './ui/grid.js';
+import { canAnalyze } from './connectors/index.js';
 import { renderDetail } from './ui/detail.js';
 import { renderBoard } from './ui/board.js';
 import { renderCopy } from './ui/copy.js';
@@ -389,7 +390,7 @@ async function doSurprise(criteria, level) {
   for (let i = 0; i < (level ? 8 : 1) && !art; i++) {
     const candidate = await surprise(criteria);
     if (!candidate) break;
-    if (!level || (await analyze(candidate))?.level === level) art = candidate;
+    if (!level || (canAnalyze(candidate) && (await analyze(candidate))?.level === level)) art = candidate;
   }
   surpriseBtn.disabled = false;
   view.querySelector('.surprise-msg')?.remove();
