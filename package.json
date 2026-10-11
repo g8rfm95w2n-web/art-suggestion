@@ -1,10 +1,10 @@
 {
   "name": "art-suggestion",
   "private": true,
-  "description": "Site statique : trouver des peintures et dessins du domaine public à copier.",
+  "description": "Site statique : trouver des peintures et dessins du domaine public \u00e0 copier.",
   "type": "module",
   "scripts": {
-    "start": "python3 -m http.server 8000",
+    "start": "python3 serve.py",
     "test": "node --test"
   }
 }

@@ -12,6 +12,10 @@
   <header class="topbar">
     <a href="#/" class="brand">Modèles à copier</a>
     <span class="tagline">Peintures et dessins du domaine public</span>
+    <nav class="topnav">
+      <a href="#/" id="nav-search">Recherche</a>
+      <a href="#/tableau" id="nav-board">Mon tableau <span id="board-count" class="tab-count">0</span></a>
+    </nav>
   </header>
 
   <!-- Les options des listes sont remplies par app.js à partir de filters.js -->
@@ -24,6 +28,9 @@
     </label>
     <label>Support
       <select name="support"><option value="">Peinture et dessin</option></select>
+    </label>
+    <label>Difficulté
+      <select name="difficulte"><option value="">Toutes</option></select>
     </label>
     <button type="button" id="surprise" class="btn btn-accent">🎲 Surprends-moi</button>
   </form>
