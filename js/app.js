@@ -17,7 +17,7 @@
 
 import { THEMES, EPOQUES, SUPPORTS, cleanCriteria } from './filters.js';
 import { parseEnvie } from './envies.js';
-import { searchAll, getArtwork, surprise } from './search.js';
+import { searchAll, getArtwork, surprise, PER_PAGE } from './search.js';
 import { esc } from './utils.js';
 import { analyze, LEVELS } from './analysis.js';
 import { STATUSES, getFavorite, listFavorites } from './favorites.js';
@@ -36,6 +36,7 @@ const APP_TITLE = document.title;
 // Mémoire de la recherche en cours : revenir du détail ne relance rien.
 const results = {
   key: null, criteria: null, page: 0, items: [], total: 0, hasMore: false, errors: [], scrollY: 0, loading: false,
+  perPage: PER_PAGE,
 };
 const known = new Map(); // id → œuvre déjà chargée (évite de la redemander)
 let difficulty = ''; // filtre de difficulté courant
@@ -140,6 +141,42 @@ const LOADING = message('Recherche en cours…', 'notice loading');
 // qu'il répond. L'état est dans `results` ; l'affichage est recalculé à partir
 // de lui (renderGrid pour tout, updateGridStatus pour le bas de page).
 
+// Défilement continu : quand le bas de la grille approche de l'écran (à
+// 800 px près), la page suivante se charge toute seule. Le bouton « Voir plus »
+// reste affiché en secours. On écoute le défilement (et non un
+// IntersectionObserver, qui ne réagit qu'à l'entrée dans l'écran : si le bas
+// de grille y est déjà, il ne relancerait plus rien).
+let scrollScheduled = false;
+function onScroll() {
+  if (scrollScheduled) return;
+  scrollScheduled = true;
+  requestAnimationFrame(() => { // au plus une vérification par image affichée
+    scrollScheduled = false;
+    if (document.body.dataset.section === 'search' && footerNearScreen()) loadNextIfNeeded();
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+
+function footerNearScreen() {
+  const footer = view.querySelector('.grid-footer');
+  return Boolean(footer) && footer.getBoundingClientRect().top < window.innerHeight + 800;
+}
+
+function loadNextIfNeeded() {
+  if (results.loading || !results.hasMore || !view.querySelector('.grid')) return;
+  runPage(results.page + 1);
+}
+
+/**
+ * Nombre d'œuvres par page : assez pour remplir ~3 lignes de la grille
+ * (6 colonnes sur grand écran → 18 œuvres), jamais moins de PER_PAGE.
+ */
+function pageSizeFor(grid) {
+  const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+  return Math.max(PER_PAGE, columns * 3);
+}
+
 /** Dessine la grille complète à partir de l'état `results`. */
 function renderGrid() {
   view.innerHTML = `
@@ -224,7 +261,9 @@ function updateCount() {
  * `autoPages` compte les pages chargées automatiquement pour le filtre de difficulté.
  */
 async function runPage(page, autoPages = 0) {
+  if (results.loading && page > 0) return; // une page est déjà en cours
   const key = results.key;
+  const before = results.items.length;
   results.loading = true;
   results.hasMore = false; // recalculé d'après les réponses de cette page
   updateGridStatus();
@@ -245,12 +284,15 @@ async function runPage(page, autoPages = 0) {
       analyses.push(showLevels(grid, part.items, updateCount));
     }
     updateGridStatus();
-  });
+  }, results.perPage);
   if (key !== results.key) return;
 
   results.page = page;
   results.loading = false;
   updateGridStatus();
+  // Écran pas encore rempli (grand écran, page maigre) : on continue, sauf si
+  // cette page n'a rien apporté (évite d'enchaîner des pages vides).
+  if (results.items.length > before && footerNearScreen()) loadNextIfNeeded();
   await Promise.all(analyses);
   if (key === results.key) autoFill(autoPages);
 }
@@ -280,6 +322,8 @@ function showGrid(criteria) {
     key, criteria, page: 0, scrollY: 0, items: [], total: 0, hasMore: false, errors: [], loading: true,
   });
   renderGrid();
+  // Taille de page fixée au début de la recherche, d'après la largeur de l'écran.
+  results.perPage = pageSizeFor(view.querySelector('.grid'));
   runPage(0);
 }
 

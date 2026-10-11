@@ -6,7 +6,7 @@ import { connectors, getConnector } from './connectors/index.js';
 import { SUPPORTS } from './filters.js';
 import { pick, randomInt } from './utils.js';
 
-export const PER_PAGE = 12; // œuvres par page, toutes sources confondues
+export const PER_PAGE = 12; // œuvres par page (minimum), toutes sources confondues
 
 // Une source qui vient d'échouer est mise de côté quelques minutes : inutile
 // de lui laisser 12 s de délai à chaque page si elle est en panne.
@@ -19,10 +19,12 @@ const pausedUntil = new Map(); // id de la source → date de reprise
  * Un musée lent ou en panne ne retarde donc plus l'affichage des autres.
  *
  * @param {(part: {items, total, hasMore, error: string|null}) => void} [onPart]
+ * @param {number} [perPage] œuvres par page ; doit rester le même pour toutes
+ *        les pages d'une même recherche (sinon les décalages ne collent plus)
  * @returns {Promise<{items, total, hasMore, errors: string[]}>} le bilan, une fois toutes les sources terminées
  */
-export async function searchAll(criteria, page, onPart = () => {}) {
-  const perSource = Math.ceil(PER_PAGE / connectors.length);
+export async function searchAll(criteria, page, onPart = () => {}, perPage = PER_PAGE) {
+  const perSource = Math.ceil(perPage / connectors.length);
   const summary = { items: [], total: 0, hasMore: false, errors: [] };
 
   await Promise.all(connectors.map(async (connector) => {
